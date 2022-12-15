@@ -2,7 +2,7 @@ import React from "react";
 import "./Register.css";
 import { useState } from "react";
 import { useRegister } from "../hooks/useRegister";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [displayName, setDisplayName] = useState("");
@@ -66,6 +66,9 @@ export default function Register() {
         </button>
       )}
       {error && <p className="error">{error}</p>}
+      <p>
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
     </form>
   );
 }

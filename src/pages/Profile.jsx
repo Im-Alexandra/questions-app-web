@@ -1,6 +1,15 @@
+import userEvent from "@testing-library/user-event";
 import React from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import "./Profile.css";
 
 export default function Profile() {
-  return <div className="container">Profile</div>;
+  const { user } = useAuthContext();
+  return (
+    <div className="container">
+      <h1>Profile</h1>
+      <p>Name: {user.displayName}</p>
+      <p>Email: {user.email}</p>
+    </div>
+  );
 }

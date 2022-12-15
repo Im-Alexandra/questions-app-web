@@ -1,15 +1,42 @@
 import React, { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { Link } from "react-router-dom";
 import "./Login.css";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../firebase/config";
+import { useForgotPassword } from "../hooks/useForgotPassword";
+import { useGoogleLogin } from "../hooks/useGoogleLogin";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isPending, error } = useLogin();
+  const { forgotPassword } = useForgotPassword();
+  const { googleLogin } = useGoogleLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
+  };
+
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    googleLogin();
+  };
+
+  const handleForgotPassword = () => {
+    console.log(email);
+    /*     if (email)
+      sendPasswordResetEmail(auth, email).then(() => {
+        console.log("email success");
+        setEmail("");
+      }); */
+    forgotPassword(email)
+      .then(() => {
+        setEmail("");
+      })
+      .catch((err) => console.log(err.message));
+    //TODO: improve the error from this and the feedback to the user
   };
 
   return (
@@ -49,6 +76,11 @@ export default function Login() {
         </button>
       )}
       {error && <p className="error">{error}</p>}
+      <p onClick={handleForgotPassword}>Forgot password?</p>
+      <button onClick={handleGoogleLogin}>Google</button>
+      <p style={{ marginTop: "100px" }}>
+        Don´t have an account? <Link to="/register">Register</Link>
+      </p>
     </form>
   );
 }

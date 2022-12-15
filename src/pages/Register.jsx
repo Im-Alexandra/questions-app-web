@@ -9,7 +9,6 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { register, isPending, error } = useRegister();
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +16,6 @@ export default function Register() {
     setDisplayName("");
     setEmail("");
     setPassword("");
-    navigate("/");
   };
 
   return (

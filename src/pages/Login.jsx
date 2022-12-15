@@ -38,10 +38,16 @@ export default function Login() {
           required
         ></input>
       </label>
-
-      <button onClick={handleSubmit} className="btn">
-        Login
-      </button>
+      {isPending && (
+        <button className="btn" disabled>
+          Loading
+        </button>
+      )}
+      {!isPending && (
+        <button onClick={handleSubmit} className="btn">
+          Login
+        </button>
+      )}
       {error && <p className="error">{error}</p>}
     </form>
   );

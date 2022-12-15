@@ -13,6 +13,8 @@ export const useRegister = () => {
     setError(null);
     setIsPending(true);
 
+    console.log(isCancelled);
+
     try {
       let { user } = await createUserWithEmailAndPassword(
         auth,
@@ -44,7 +46,10 @@ export const useRegister = () => {
   };
 
   useEffect(() => {
-    return () => setIsCancelled(true);
+    return () => {
+      setIsCancelled(true);
+      console.log("cleanup run in register");
+    };
   }, []);
 
   return { error, isPending, register };

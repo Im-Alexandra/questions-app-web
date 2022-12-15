@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Quicksand_Bold";
-  src: url(/src/fonts/Quicksand_Bold.otf) format("opentype");
+  src: url(/src/assets/fonts/Quicksand_Bold.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Quicksand_Bold_Oblique";
-  src: url(/src/fonts/Quicksand_Bold_Oblique.otf) format("opentype");
+  src: url(/src/assets/fonts/Quicksand_Bold_Oblique.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Quicksand_Book";
-  src: url(/src/fonts/Quicksand_Book.otf) format("opentype");
+  src: url(/src/assets/fonts/Quicksand_Book.otf) format("opentype");
 }
 
 /* VARIABLES */
@@ -38,12 +38,9 @@ h3 {
   color: var(--orange);
   text-transform: uppercase;
 }
-.App {
-  display: flex;
-}
-.App .container {
-  flex-grow: 1;
-  padding: 0 60px;
+
+.app .container {
+  padding: 0 40px;
 }
 .btn {
   background: none;
@@ -59,20 +56,4 @@ h3 {
 }
 .error {
   color: #e10404;
-}
-
-/* APP css */
-.navbar {
-  width: 100%;
-  padding: 30px 0;
-}
-.navbar ul {
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-}
-.navbar a {
-  color: var(--black);
-  text-decoration: none;
-  margin-right: 20px;
 }

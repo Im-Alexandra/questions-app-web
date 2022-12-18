@@ -31,6 +31,7 @@ export default function Register() {
             setDisplayName(e.target.value);
           }}
           required
+          autoComplete="username"
         ></input>
       </label>
       <label>
@@ -42,6 +43,7 @@ export default function Register() {
             setEmail(e.target.value);
           }}
           required
+          autoComplete="email"
         ></input>
       </label>
       <label>
@@ -53,6 +55,7 @@ export default function Register() {
             setPassword(e.target.value);
           }}
           required
+          autoComplete="current-password"
         ></input>
       </label>
       {!isPending && (

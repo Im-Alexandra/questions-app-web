@@ -1,7 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
-import { useLogout } from "./hooks/useLogout";
 
 //pages
 import Home from "./pages/Home";

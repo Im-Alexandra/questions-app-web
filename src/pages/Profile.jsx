@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "./Profile.css";

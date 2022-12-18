@@ -48,7 +48,6 @@ export const useRegister = () => {
   useEffect(() => {
     return () => {
       setIsCancelled(true);
-      console.log("cleanup run in register");
     };
   }, []);
 

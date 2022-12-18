@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
 import "./Login.css";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase/config";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import { useGoogleLogin } from "../hooks/useGoogleLogin";
 
@@ -52,6 +50,7 @@ export default function Login() {
             setEmail(e.target.value);
           }}
           required
+          autoComplete="email"
         ></input>
       </label>
       <label>
@@ -63,6 +62,7 @@ export default function Login() {
             setPassword(e.target.value);
           }}
           required
+          autoComplete="current-password"
         ></input>
       </label>
       {isPending && (

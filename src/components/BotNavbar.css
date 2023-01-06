@@ -1,0 +1,29 @@
+.bot-navbar {
+  width: 100%;
+  max-width: 800px;
+  /* padding: 10px 0; */
+  position: fixed;
+  bottom: 0;
+  background: var(--blue);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.bot-navbar .item {
+  flex-grow: 1;
+  height: 80px;
+}
+
+.bot-navbar .item.active {
+  background-color: var(--dark-blue);
+}
+
+.bot-navbar .icon {
+  max-width: 50px;
+  margin: auto;
+  display: block;
+  padding: 10px 0;
+}

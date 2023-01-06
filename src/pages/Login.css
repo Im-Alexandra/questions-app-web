@@ -1,6 +1,6 @@
 .login-form {
   max-width: 360px;
-  margin: 60px auto;
+  margin: auto;
   padding: 20px;
   color: var(--black);
 }
@@ -21,6 +21,11 @@ login-form label {
   width: 100%;
   margin-bottom: 25px;
   color: #444444;
-  border: 1px solid #444444;
   border-radius: 4px;
+  background-color: white;
+  border: 1px solid #cecdcd;
+}
+
+.login-form input:focus {
+  border: 1px solid var(--blue);
 }

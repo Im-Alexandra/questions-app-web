@@ -38,49 +38,51 @@ export default function Login() {
   };
 
   return (
-    <form className="login-form">
-      <h2>Login</h2>
+    <div className="container">
+      <form className="login-form">
+        <h1 className="text-center">Login</h1>
 
-      <label>
-        <span>Email: </span>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          required
-          autoComplete="email"
-        ></input>
-      </label>
-      <label>
-        <span>Password: </span>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          required
-          autoComplete="current-password"
-        ></input>
-      </label>
-      {isPending && (
-        <button className="btn" disabled>
-          Loading
-        </button>
-      )}
-      {!isPending && (
-        <button onClick={handleSubmit} className="btn">
-          Login
-        </button>
-      )}
-      {error && <p className="error">{error}</p>}
-      <p onClick={handleForgotPassword}>Forgot password?</p>
-      <button onClick={handleGoogleLogin}>Google</button>
-      <p style={{ marginTop: "100px" }}>
-        Don´t have an account? <Link to="/register">Register</Link>
-      </p>
-    </form>
+        <label>
+          <span>Email: </span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            required
+            autoComplete="email"
+          ></input>
+        </label>
+        <label>
+          <span>Password: </span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            required
+            autoComplete="current-password"
+          ></input>
+        </label>
+        {isPending && (
+          <button className="btn full-width" disabled>
+            Loading
+          </button>
+        )}
+        {!isPending && (
+          <button onClick={handleSubmit} className="btn full-width">
+            Login
+          </button>
+        )}
+        {error && <p className="error">{error}</p>}
+        <p onClick={handleForgotPassword}>Forgot password?</p>
+        <button onClick={handleGoogleLogin}>Google</button>
+        <p style={{ marginTop: "100px" }}>
+          Don´t have an account? <Link to="/register">Register</Link>
+        </p>
+      </form>
+    </div>
   );
 }

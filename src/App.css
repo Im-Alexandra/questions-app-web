@@ -39,8 +39,33 @@ h3 {
   text-transform: uppercase;
 }
 
+input {
+  border-style: none;
+  background: transparent;
+  outline: none;
+}
+
+/* autofill reset to white */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:focus {
+  border: 1px solid var(--blue);
+}
+
+/* COMMON CLASSES */
+.app {
+  max-width: 800px;
+  margin: auto;
+}
 .app .container {
   padding: 0 40px;
+  margin-top: 120px;
+  margin-bottom: 120px;
 }
 .btn {
   background: none;
@@ -49,11 +74,29 @@ h3 {
   background-color: var(--blue);
   cursor: pointer;
   color: white;
-  padding: 12px 25px;
   font-family: "Quicksand_bold";
   text-transform: uppercase;
   font-size: 1em;
+  height: 38px;
+  padding: 0 25px;
+}
+.btn:disabled {
+  background-color: #b2e6ea;
+}
+.full-width {
+  width: 100%;
 }
 .error {
   color: #e10404;
+}
+.logo {
+  width: 41px;
+}
+.text-center {
+  text-align: center;
+}
+.go-back {
+  width: 20px;
+  margin-right: 20px;
+  cursor: pointer;
 }

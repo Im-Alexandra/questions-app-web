@@ -8,6 +8,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
+import BotNavbar from "./components/BotNavbar";
+import NewGame from "./pages/NewGame";
+import MyQuestions from "./pages/MyQuestions";
+import Question from "./pages/Question";
 
 function App() {
   const { user } = useAuthContext();
@@ -34,8 +38,21 @@ function App() {
               path="/profile"
               element={user ? <Profile /> : <Navigate to="/login" />}
             />
+            <Route
+              path="/play"
+              element={user ? <NewGame /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/my-questions"
+              element={user ? <MyQuestions /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/question/:id"
+              element={user ? <Question /> : <Navigate to="/login" />}
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          {user && <BotNavbar />}
         </BrowserRouter>
       )}
     </div>

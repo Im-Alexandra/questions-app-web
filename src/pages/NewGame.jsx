@@ -19,6 +19,31 @@ export default function NewGame() {
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
 
+  const fakeDb = [
+    {
+      id: "080nLRzpzdGBpL2UlnIi",
+      question:
+        "How do you tell your story? Always the same...or is there a lot of variations on your story?",
+      tags: ["justMet", "connection"],
+    },
+    {
+      id: "4AgLKQYluPFisFYOC8bk",
+      question: "Are you afraid of sexual activities on the edge?",
+      tags: ["romantic", "fun"],
+    },
+    {
+      id: "85yz7xyGKkBRbjiPoPw9",
+      question:
+        "How would you look and behave if you were a Professor of Happiness?",
+      tags: ["romantic", "fun"],
+    },
+    {
+      id: "97WYy0CtMYnmiDHWjBIf",
+      question: "Do we have the power of changing other people?",
+      tags: ["justMet", "famFriendly", "connection"],
+    },
+  ];
+
   const handleAdd = (e) => {
     const newInput = newPlayer.trim();
     if (newInput && !players.includes(newInput)) {
@@ -38,13 +63,22 @@ export default function NewGame() {
     let catArray = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
-    console.log(catArray);
-    //console.log("categories (tags): ", categories);
-    navigate("/question/AeuzjUMt1kCR1BbDIBKV");
-  };
+    console.log("categories: ", catArray);
 
-  const handleModalClose = () => {
-    setShowModal(false);
+    //get back all the eligible questions and reshuffle them
+    const reshuffledQuestions = fakeDb
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+    //pick first 2
+    const pickedReshuffledQuestions = reshuffledQuestions.slice(0, 3);
+
+    console.log("from db: ", fakeDb);
+    console.log("shuffled db: ", pickedReshuffledQuestions);
+
+    navigate("/new-game/play", {
+      state: { pickedReshuffledQuestions, players, currentIndex: 0 },
+    });
   };
 
   return (
@@ -218,7 +252,11 @@ export default function NewGame() {
       </button>
 
       {showModal && (
-        <InfoModal handleClose={handleModalClose}>
+        <InfoModal
+          handleClose={() => {
+            setShowModal(false);
+          }}
+        >
           <h2>Modal</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam

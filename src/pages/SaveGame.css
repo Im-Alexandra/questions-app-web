@@ -1,0 +1,108 @@
+.save-game-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+.save-game-page {
+  max-width: 800px;
+  background-color: var(--orange);
+
+  margin: auto;
+  position: relative;
+  height: 100%;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 120px 60px;
+  font-family: "Quicksand_Bold";
+}
+.save-game-page .icon {
+  position: absolute;
+  width: 30px;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+.save-game-page textarea {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: #b9503b;
+  color: white;
+  font-size: 1em;
+  max-width: 300px;
+  margin: auto;
+  margin-top: 30px;
+  height: 220px;
+  padding: 15px;
+  border-radius: 19px;
+  font-family: "Quicksand";
+  line-height: 1.2em;
+}
+.save-game-page textarea::placeholder {
+  color: white;
+}
+.save-game-page textarea:focus {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.save-game-page .date {
+  position: absolute;
+  width: 30px;
+  top: 25px;
+  left: 20px;
+  margin: 0;
+}
+.save-game-page #the-count {
+  text-align: right;
+  max-width: 300px;
+  margin: auto;
+  font-size: 0.5em;
+  margin-bottom: 80px;
+}
+.save-game-page .players {
+  display: flex;
+  max-width: 300px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.save-game-page .players p {
+  margin: 0;
+}
+.save-game-page .players p:after {
+  content: " &";
+}
+.save-game-page .players p:last-child:after {
+  content: "";
+}
+.save-game-page .controls {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.save-game-page .controls img {
+  width: 32px;
+  max-height: 35px;
+  cursor: pointer;
+  flex-grow: 1;
+}
+.save-game-page .controls img:last-child {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}

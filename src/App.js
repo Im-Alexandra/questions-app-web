@@ -12,6 +12,7 @@ import BotNavbar from "./components/BotNavbar";
 import NewGame from "./pages/NewGame";
 import MyQuestions from "./pages/MyQuestions";
 import Question from "./pages/Question";
+import SaveGame from "./pages/SaveGame";
 
 function App() {
   const { user } = useAuthContext();
@@ -39,7 +40,7 @@ function App() {
               element={user ? <Profile /> : <Navigate to="/login" />}
             />
             <Route
-              path="/play"
+              path="/new-game"
               element={user ? <NewGame /> : <Navigate to="/login" />}
             />
             <Route
@@ -47,8 +48,12 @@ function App() {
               element={user ? <MyQuestions /> : <Navigate to="/login" />}
             />
             <Route
-              path="/question/:id"
+              path="/new-game/play"
               element={user ? <Question /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/new-game/save"
+              element={user ? <SaveGame /> : <Navigate to="/login" />}
             />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

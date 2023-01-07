@@ -16,8 +16,10 @@ export default function BotNavbar() {
           <img src={gameRecordsIcon} alt="" className="icon" />
         </NavLink>
       </div>
-      <div className={location.pathname === "/play" ? "active item" : "item"}>
-        <NavLink to="/play">
+      <div
+        className={location.pathname === "/new-game" ? "active item" : "item"}
+      >
+        <NavLink to="/new-game">
           <img src={playIcon} alt="" className="icon" />
         </NavLink>
       </div>

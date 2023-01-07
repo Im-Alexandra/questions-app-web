@@ -23,19 +23,20 @@ export default function Home() {
         //console.log(doc.id, " => ", doc.data());
         result.push({ ...doc.data(), id: doc.id });
         console.log(doc.data());
+        setQuestionOfTheDay(result[1]);
       });
     };
 
     fetchData().catch((err) => console.log(err.message));
-    console.log(result);
+    console.log("result: ", result);
   }, []);
   return (
     <div className="container">
       <h2>Question of the day:</h2>
-      <p>{questionOfTheDay}</p>
+      {questionOfTheDay && <p>{questionOfTheDay.question}</p>}
       <h2>Conversation starters:</h2>
       <h2>Ready to ask?</h2>
-      <button className="btn" onClick={() => navigate("/play")}>
+      <button className="btn" onClick={() => navigate("/new-game")}>
         New game
       </button>
       <p>

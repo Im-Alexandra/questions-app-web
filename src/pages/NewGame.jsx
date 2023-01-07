@@ -40,6 +40,7 @@ export default function NewGame() {
     );
     console.log(catArray);
     //console.log("categories (tags): ", categories);
+    navigate("/question/AeuzjUMt1kCR1BbDIBKV");
   };
 
   const handleModalClose = () => {

@@ -1,0 +1,43 @@
+.cat-picker .options-container {
+  display: flex;
+  justify-content: center;
+}
+.cat-picker .options-container label {
+  display: flex;
+  padding: 5px 15px;
+  align-items: center;
+  border-radius: 4px 0 0 4px;
+  /* background-color: #46bdc6; */
+  border: 1px solid var(--dark-blue);
+  color: var(--dark-blue);
+  height: 38px;
+  font-family: "Quicksand_bold";
+}
+.cat-picker .options-container label:last-child {
+  border-radius: 0 4px 4px 0;
+  border-left: none;
+}
+.cat-picker .options-container input {
+  opacity: 0.01;
+  z-index: 100;
+  width: 0px;
+}
+.cat-picker .options-container span {
+  margin: 0;
+}
+.cat-picker .options-container label.checked {
+  background-color: #2f5e63;
+  border: none;
+  color: white;
+}
+.cat-picker .mt-38 {
+  margin-top: 38px;
+}
+.cat-picker .icon {
+  width: 20px;
+  margin-left: 6px;
+}
+.cat-picker .p-with-icon {
+  display: flex;
+  align-items: baseline;
+}

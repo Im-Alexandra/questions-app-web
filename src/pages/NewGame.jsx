@@ -4,48 +4,22 @@ import { useNavigate } from "react-router-dom";
 
 import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
-import infoIcon from "../assets/infoIcon.svg";
-import InfoModal from "../components/InfoModal";
 import { useCollection } from "../hooks/useCollection";
+import CategoryPicker from "../components/CategoryPicker";
 
 export default function NewGame() {
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
   const [newPlayer, setNewPlayer] = useState("");
   const [players, setPlayers] = useState([]);
   const newPlayerInput = useRef(null);
 
+  //category picker state
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
 
-  const { documents, error, isPending } = useCollection("questions");
-
-  const fakeDb = [
-    {
-      id: "080nLRzpzdGBpL2UlnIi",
-      question:
-        "How do you tell your story? Always the same...or is there a lot of variations on your story?",
-      tags: ["justMet", "connection"],
-    },
-    {
-      id: "4AgLKQYluPFisFYOC8bk",
-      question: "Are you afraid of sexual activities on the edge?",
-      tags: ["romantic", "fun"],
-    },
-    {
-      id: "85yz7xyGKkBRbjiPoPw9",
-      question:
-        "How would you look and behave if you were a Professor of Happiness?",
-      tags: ["romantic", "fun"],
-    },
-    {
-      id: "97WYy0CtMYnmiDHWjBIf",
-      question: "Do we have the power of changing other people?",
-      tags: ["justMet", "famFriendly", "connection"],
-    },
-  ];
+  const { documents } = useCollection("questions");
 
   const handleAdd = (e) => {
     const newInput = newPlayer.trim();
@@ -63,7 +37,7 @@ export default function NewGame() {
 
   const playGame = () => {
     //console.log("players: ", players);
-    let catArray = [option1, option2, option3, option4].filter(
+    const catArray = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
     console.log("categories: ", catArray);
@@ -102,6 +76,18 @@ export default function NewGame() {
         categories: catArray,
       },
     });
+  };
+
+  const handleCategoryChange = (e) => {
+    if (e.target.name === "option1") {
+      setOption1(e.target.value);
+    } else if (e.target.name === "option2") {
+      setOption2(e.target.value);
+    } else if (e.target.name === "option3") {
+      setOption3(e.target.value);
+    } else if (e.target.name === "option4") {
+      setOption4(e.target.value);
+    }
   };
 
   return (
@@ -150,145 +136,16 @@ export default function NewGame() {
         ))}
       </div>
 
-      {/* CATEGORIES BELOW */}
-      <p className="mt-38">Romantic or sexual partner:</p>
-      <div className="options-container">
-        <label className={option1 === "romantic" ? "checked" : ""}>
-          <span>YES</span>
-          <input
-            type="radio"
-            value="romantic"
-            name="option1"
-            checked={option1 === "romantic"}
-            onChange={(e) => {
-              setOption1(e.target.value);
-            }}
-          ></input>
-        </label>
-        <label className={option1 === "" ? "checked" : ""}>
-          <span>NO</span>
-          <input
-            type="radio"
-            value=""
-            name="option1"
-            checked={option1 === ""}
-            onChange={(e) => {
-              setOption1(e.target.value);
-            }}
-          ></input>
-        </label>
-      </div>
-
-      <p className="mt-38 p-with-icon">
-        Keep it family-friendly:
-        <img
-          className="icon"
-          src={infoIcon}
-          alt="family friendly"
-          onClick={() => setShowModal(true)}
-        />
-      </p>
-      <div className="options-container">
-        <label className={option2 === "famFriendly" ? "checked" : ""}>
-          <span>YES</span>
-          <input
-            type="radio"
-            value="famFriendly"
-            name="option2"
-            checked={option2 === "famFriendly"}
-            onChange={(e) => {
-              setOption2(e.target.value);
-            }}
-          ></input>
-        </label>
-        <label className={option2 === "" ? "checked" : ""}>
-          <span>NO</span>
-          <input
-            type="radio"
-            value=""
-            name="option2"
-            checked={option2 === ""}
-            onChange={(e) => {
-              setOption2(e.target.value);
-            }}
-          ></input>
-        </label>
-      </div>
-
-      <p className="mt-38">Just met:</p>
-      <div className="options-container">
-        <label className={option3 === "justMet" ? "checked" : ""}>
-          <span>YES</span>
-          <input
-            type="radio"
-            value="justMet"
-            name="option3"
-            checked={option3 === "justMet"}
-            onChange={(e) => {
-              setOption3(e.target.value);
-            }}
-          ></input>
-        </label>
-        <label className={option3 === "" ? "checked" : ""}>
-          <span>NO</span>
-          <input
-            type="radio"
-            value=""
-            name="option3"
-            checked={option3 === ""}
-            onChange={(e) => {
-              setOption3(e.target.value);
-            }}
-          ></input>
-        </label>
-      </div>
-
-      <p className="mt-38">Specify nature of the game:</p>
-      <div className="options-container">
-        <label className={option4 === "fun" ? "checked" : ""}>
-          <span>FUN</span>
-          <input
-            type="radio"
-            value="fun"
-            name="option4"
-            checked={option4 === "fun"}
-            onChange={(e) => {
-              setOption4(e.target.value);
-            }}
-          ></input>
-        </label>
-        <label className={option4 === "connection" ? "checked" : ""}>
-          <input
-            type="radio"
-            value="connection"
-            name="option4"
-            checked={option4 === "connection"}
-            onChange={(e) => {
-              setOption4(e.target.value);
-            }}
-          ></input>
-          <span>CONNECTION</span>
-        </label>
-      </div>
+      <CategoryPicker
+        option1={option1}
+        option2={option2}
+        option3={option3}
+        option4={option4}
+        change={handleCategoryChange}
+      />
       <button className="btn mt-38 full-width" onClick={playGame}>
         Start new game
       </button>
-
-      {showModal && (
-        <InfoModal
-          handleClose={() => {
-            setShowModal(false);
-          }}
-        >
-          <h2>Modal</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            gravida pellentesque est. Vestibulum blandit metus non mauris
-            fermentum, nec lobortis dui pulvinar. Quisque pulvinar ipsum arcu,
-            ut varius ipsum laoreet eu.
-          </p>
-        </InfoModal>
-      )}
     </div>
   );
 }

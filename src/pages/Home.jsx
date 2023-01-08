@@ -1,35 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Home.css";
-import { db } from "../firebase/config";
-import { collection, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [questionOfTheDay, setQuestionOfTheDay] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let result = [];
-    const test = [
-      { question: "test", tag: "tag" },
-      {
-        question: "aha",
-        tag: "hej",
-      },
-    ];
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "questions"));
-      querySnapshot.forEach((doc) => {
-        //console.log(doc.id, " => ", doc.data());
-        result.push({ ...doc.data(), id: doc.id });
-        console.log(doc.data());
-        setQuestionOfTheDay(result[1]);
-      });
-    };
-
-    fetchData().catch((err) => console.log(err.message));
-    console.log("result: ", result);
-  }, []);
   return (
     <div className="container">
       <h2>Question of the day:</h2>

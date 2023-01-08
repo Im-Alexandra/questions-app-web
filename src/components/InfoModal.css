@@ -9,13 +9,14 @@
 }
 .infoModal {
   text-align: center;
-  padding: 30px;
+  padding: 40px 30px 30px 30px;
   width: 80%;
   max-width: 480px;
   margin: 200px auto;
   background: white;
   border-radius: 10px;
   position: relative;
+  line-height: 1.3em;
 }
 .infoModal img {
   width: 20px;

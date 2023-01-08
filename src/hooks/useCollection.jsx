@@ -1,11 +1,41 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
+import { collection, getDocs } from "firebase/firestore";
 
-export const useCollection = (collection) => {
+export const useCollection = (col) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  //const q = query(collection(db, "questions"), where("capital", "==", true));
 
+  //realtime data for the collection
   useEffect(() => {
-    let ref = db.collection(collection);
-  }, [collection]);
+    const fetchData = async () => {
+      setIsPending(true);
+      try {
+        const querySnapshot = await getDocs(collection(db, col));
+        let tempArray = [];
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          //console.log(doc.id, " => ", doc.data());
+          //console.log(doc.data());
+          tempArray.push({ ...doc.data(), id: doc.id });
+        });
+        if (querySnapshot.docs.length > 0) {
+          setDocuments([...tempArray]);
+          setError(null);
+        } else {
+          setDocuments(undefined);
+          setError("No such collection exists");
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsPending(false);
+    };
+
+    fetchData();
+  }, [col]);
+
+  return { documents, error, isPending };
 };

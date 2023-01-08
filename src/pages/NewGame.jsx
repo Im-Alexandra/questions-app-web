@@ -6,6 +6,7 @@ import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
 import infoIcon from "../assets/infoIcon.svg";
 import InfoModal from "../components/InfoModal";
+import { useCollection } from "../hooks/useCollection";
 
 export default function NewGame() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export default function NewGame() {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
+
+  const { documents, error, isPending } = useCollection("questions");
 
   const fakeDb = [
     {
@@ -59,25 +62,45 @@ export default function NewGame() {
   };
 
   const playGame = () => {
-    console.log("players: ", players);
+    //console.log("players: ", players);
     let catArray = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
     console.log("categories: ", catArray);
 
     //get back all the eligible questions and reshuffle them
-    const reshuffledQuestions = fakeDb
+    const filteredDocs = documents.filter((doc) => {
+      /* console.log(doc.tags);
+      console.log(catArray.every((ai) => doc.tags.includes(ai))); */
+      if (doc.tags.every((ai) => catArray.includes(ai))) {
+        return true;
+      } else {
+        return false;
+      }
+      /* console.log(doc.tags);
+      console.log(catArray.some((ai) => doc.tags.includes(ai)));
+      if (catArray.some((ai) => doc.tags.includes(ai))) {
+        return true;
+      } else {
+        return false;
+      } */
+    });
+    console.log(filteredDocs);
+    const reshuffledQuestions = filteredDocs
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
-    //pick first 2
-    const pickedReshuffledQuestions = reshuffledQuestions.slice(0, 3);
-
-    console.log("from db: ", fakeDb);
-    console.log("shuffled db: ", pickedReshuffledQuestions);
+    //pick first 5
+    const pickedReshuffledQuestions = reshuffledQuestions.slice(0, 5);
+    console.log(pickedReshuffledQuestions);
 
     navigate("/new-game/play", {
-      state: { pickedReshuffledQuestions, players, currentIndex: 0 },
+      state: {
+        pickedReshuffledQuestions,
+        players,
+        currentIndex: 0,
+        categories: catArray,
+      },
     });
   };
 

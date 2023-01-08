@@ -53,41 +53,60 @@ export default function Question() {
             navigate("/new-game");
           }}
         />
-        {location.state.pickedReshuffledQuestions && (
-          <p className="question">
-            {location.state.pickedReshuffledQuestions[currentIndex].question}
-          </p>
+        {location.state.pickedReshuffledQuestions.length !== 0 && (
+          <>
+            <p className="question">
+              {location.state.pickedReshuffledQuestions[currentIndex].question}
+            </p>
+
+            <div className="controls">
+              <div className="top">
+                <img
+                  className="controls-icon"
+                  src={heart}
+                  alt=""
+                  onClick={click}
+                />
+              </div>
+
+              <div className="mid">
+                <img
+                  className="controls-icon"
+                  src={leftArrow}
+                  alt="left"
+                  onClick={handleArrowClick}
+                />
+                {location.state.pickedReshuffledQuestions && (
+                  <p>
+                    {currentIndex + 1}/
+                    {location.state.pickedReshuffledQuestions.length}
+                  </p>
+                )}
+                <img
+                  className="controls-icon"
+                  src={leftArrow}
+                  alt="right"
+                  onClick={handleArrowClick}
+                />
+              </div>
+
+              <div className="bot">
+                <img className="controls-icon" src={time} alt="" />
+              </div>
+            </div>
+          </>
         )}
-        <div className="controls">
-          <div className="top">
-            <img className="controls-icon" src={heart} alt="" onClick={click} />
-          </div>
-
-          <div className="mid">
-            <img
-              className="controls-icon"
-              src={leftArrow}
-              alt="left"
-              onClick={handleArrowClick}
-            />
-            {location.state.pickedReshuffledQuestions && (
-              <p>
-                {currentIndex + 1}/
-                {location.state.pickedReshuffledQuestions.length}
-              </p>
-            )}
-            <img
-              className="controls-icon"
-              src={leftArrow}
-              alt="right"
-              onClick={handleArrowClick}
-            />
-          </div>
-
-          <div className="bot">
-            <img className="controls-icon" src={time} alt="" />
-          </div>
-        </div>
+        {location.state.pickedReshuffledQuestions.length === 0 && (
+          <>
+            <p>
+              Unfortunately, there are no questions within these set of
+              categories yet.
+            </p>
+            <p>
+              Categories picked: {location.state.categories.map((c) => c + " ")}
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

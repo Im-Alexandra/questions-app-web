@@ -2,6 +2,9 @@
   display: flex;
   justify-content: center;
 }
+.cat-picker p {
+  margin-bottom: 8px;
+}
 .cat-picker .options-container label {
   display: flex;
   padding: 5px 15px;

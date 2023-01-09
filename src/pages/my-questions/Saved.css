@@ -1,0 +1,59 @@
+.saved-questions .card {
+  background-color: var(--blue);
+  padding: 15px 20px;
+  color: white;
+  border-radius: 10px;
+  font-size: 1.2em;
+  font-family: "Quicksand_Bold";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 334px;
+  flex: 1;
+  max-width: 50%;
+}
+.saved-questions .content {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.saved-questions .players {
+  display: flex;
+  max-width: 250px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+.saved-questions .players p {
+  margin: 0;
+  text-transform: uppercase;
+}
+.saved-questions .players p:after {
+  content: " &";
+}
+.saved-questions .players p:last-child:after {
+  content: "";
+}
+.saved-questions .icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.saved-questions .icon-wrapper div {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.saved-questions .icon-wrapper img {
+  width: 40px;
+  height: 40px;
+}

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Question.css";
 import close from "../assets/closeWhite.svg";
-import heart from "../assets/heart.svg";
+import heart from "../assets/heartWhite.svg";
 import leftArrow from "../assets/leftArrowWhite.svg";
-import time from "../assets/time.svg";
+import time from "../assets/timeWhite.svg";
 
 export default function Question() {
   const navigate = useNavigate();

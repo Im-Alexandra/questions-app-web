@@ -1,0 +1,41 @@
+.add .btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+}
+.add .textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.add textarea {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: #e1e1e1;
+  color: var(--black);
+  font-size: 1.5em;
+  width: 300px;
+  margin: auto;
+  height: 230px;
+  padding: 15px;
+  border-radius: 10px;
+  font-family: "Quicksand";
+}
+.add textarea::placeholder {
+  color: var(--black);
+}
+.add textarea:focus {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.add .count {
+  text-align: right;
+  width: 300px;
+}

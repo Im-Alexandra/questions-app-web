@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import BotNavbar from "./components/BotNavbar";
 import NewGame from "./pages/NewGame";
-import MyQuestions from "./pages/MyQuestions";
+import MyQuestions from "./pages/my-questions/MyQuestions.jsx";
 import Question from "./pages/Question";
 import SaveGame from "./pages/SaveGame";
 

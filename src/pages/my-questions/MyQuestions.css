@@ -1,0 +1,31 @@
+.my-questions .top-nav {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+.my-questions .top-nav .wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-questions .top-nav .circle {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.my-questions .top-nav .circle.active {
+  background-color: var(--orange);
+}
+.my-questions .top-nav img {
+  width: 40px;
+  height: 40px;
+}

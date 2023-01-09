@@ -1,0 +1,29 @@
+.profile .avatar {
+  display: flex;
+  justify-content: center;
+}
+.profile .wrapper {
+  width: 150px;
+  position: relative;
+}
+.profile .pic {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  border-radius: 50%;
+}
+.profile .game-count {
+  position: absolute;
+  bottom: -20px;
+  right: -40px;
+  width: 80px;
+  height: 80px;
+  background-color: var(--orange);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-family: "Quicksand_Bold";
+}

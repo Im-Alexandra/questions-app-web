@@ -18,9 +18,9 @@ export default function Favourites(props) {
     }
   };
 
-  const handleClick = (e, index) => {
-    const indexToDelete = index;
-    console.log(indexToDelete);
+  const handleClick = (e, id) => {
+    const questionToDelete = id;
+    console.log(questionToDelete);
   };
 
   return (
@@ -29,26 +29,28 @@ export default function Favourites(props) {
         <h3>Favourites</h3>
       </div>
       <div className="content">
-        {props.questions.length !== 0 &&
-          props.questions.map((q, i) => (
+        {props.questions !== undefined &&
+          Object.keys(props.questions).map((q) => (
             <div
               className="card"
-              key={q.id}
-              style={{ backgroundColor: pickCardColor(q.tags) }}
+              key={q}
+              style={{
+                backgroundColor: pickCardColor(props.questions[q].tags),
+              }}
             >
-              <p>{q.question}</p>
+              <p>{props.questions[q].question}</p>
               <div className="icon-wrapper">
                 <div>
                   <img
                     src={trash}
                     alt="check icon"
-                    onClick={(e) => handleClick(e, i)}
+                    onClick={(e) => handleClick(e, q)}
                   />
                 </div>
               </div>
             </div>
           ))}
-        {props.questions.length === 0 && <p>No favourite questions</p>}
+        {props.questions === undefined && <p>No favourite questions</p>}
       </div>
     </div>
   );

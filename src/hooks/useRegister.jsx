@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { auth } from "../firebase/config";
+import { db, auth } from "../firebase/config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
+import { doc, setDoc } from "firebase/firestore";
 
 export const useRegister = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -12,8 +13,7 @@ export const useRegister = () => {
   const register = async (displayName, email, password) => {
     setError(null);
     setIsPending(true);
-
-    console.log(isCancelled);
+    //console.log(isCancelled);
 
     try {
       let { user } = await createUserWithEmailAndPassword(
@@ -29,6 +29,11 @@ export const useRegister = () => {
       //add display name
       await updateProfile(user, { displayName });
 
+      //create user document in the firestore
+      await setDoc(doc(db, "users", user.uid), {
+        displayName,
+      });
+
       //dispatch login action
       dispatch({ type: "LOGIN", payload: user });
 
@@ -38,7 +43,7 @@ export const useRegister = () => {
       }
     } catch (err) {
       if (!isCancelled) {
-        console.log(err.message);
+        //console.log(err.message);
         setError(err.message);
         setIsPending(false);
       }

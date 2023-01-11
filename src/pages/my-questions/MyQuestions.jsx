@@ -33,41 +33,36 @@ export default function MyQuestions() {
       },
     },
     questions: {
-      saved: [
-        {
-          id: "85yz7xyGKkBRbjiPoPw9",
+      saved: {
+        "85yz7xyGKkBRbjiPoPw9": {
           question:
             "How would you look and behave if you were a Professor of Happiness?",
           tags: ["justMet", "famFriendly", "fun"],
           players: ["Melina", "Katica", "Saska"],
         },
-      ],
-      favourites: [
-        {
-          id: "WEPyyemooR6v43r0AoVp",
+      },
+      favourites: {
+        WEPyyemooR6v43r0AoVp: {
           question:
             "In which moment in history of the humanity would you place yourself and why?",
           tags: ["justMet", "famFriendly", "fun"],
         },
-        {
-          id: "85yz7xyGKkBRbjiPoPw9",
+        "85yz7xyGKkBRbjiPoPw9": {
           question:
             "How would you look and behave if you were a Professor of Happiness?",
           tags: ["fun"],
         },
-        {
-          id: "kOXnYuNneVcoopXbpJa5",
+        kOXnYuNneVcoopXbpJa5: {
           question: "Test question",
           tags: ["justMet", "connection"],
         },
-      ],
-      added: [
-        {
-          id: "kOXnYuNneVcoopXbpJa5",
+      },
+      added: {
+        kOXnYuNneVcoopXbpJa5: {
           question: "Test question",
           tags: ["justMet", "famFriendly", "fun"],
         },
-      ],
+      },
     },
   };
 

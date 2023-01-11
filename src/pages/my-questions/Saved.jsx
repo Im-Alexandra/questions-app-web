@@ -17,32 +17,42 @@ export default function Saved(props) {
     }
   };
 
+  const handleResolved = (e, id) => {
+    console.log(id);
+  };
+
   return (
     <div className="saved-questions">
       <div className="heading text-center">
         <h3>Saved for later</h3>
       </div>
       <div className="content">
-        {props.questions.length !== 0 &&
-          props.questions.map((q) => (
+        {props.questions !== undefined &&
+          Object.keys(props.questions).map((q) => (
             <div
               className="card"
-              key={q.id}
-              style={{ backgroundColor: pickCardColor(q.tags) }}
+              key={q}
+              style={{
+                backgroundColor: pickCardColor(props.questions[q].tags),
+              }}
             >
-              <p>{q.question}</p>
+              <p>{props.questions[q].question}</p>
               <div className="players">
                 {q.players !== undefined &&
-                  q.players.map((p) => <p key={p}>{p}</p>)}
+                  props.questions[q].players.map((p) => <p key={p}>{p}</p>)}
               </div>
               <div className="icon-wrapper">
                 <div>
-                  <img src={check} alt="check icon" />
+                  <img
+                    src={check}
+                    alt="check icon"
+                    onClick={(e) => handleResolved(e, q)}
+                  />
                 </div>
               </div>
             </div>
           ))}
-        {props.questions.length === 0 && <p>No saved questions</p>}
+        {props.questions === undefined && <p>No saved questions</p>}
       </div>
     </div>
   );

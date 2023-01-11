@@ -12,9 +12,10 @@ export default function Question() {
   const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(location.state.currentIndex);
 
-  const click = () => {
-    console.log("DISGUSTING STATE: ", location.state.pickedReshuffledQuestions);
-    console.log(location.state.pickedReshuffledQuestions.length);
+  const saveToFavourites = () => {
+    const currentQuestion =
+      location.state.pickedReshuffledQuestions[location.state.currentIndex];
+    console.log("Current question: ", currentQuestion);
   };
 
   const handleArrowClick = (e) => {
@@ -65,7 +66,7 @@ export default function Question() {
                   className="controls-icon"
                   src={heart}
                   alt=""
-                  onClick={click}
+                  onClick={saveToFavourites}
                 />
               </div>
 

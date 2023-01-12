@@ -19,19 +19,12 @@ export default function SaveGame() {
   };
 
   const handleLeftArrowClick = () => {
-    /* console.log(location.state.pickedReshuffledQuestions);
-    console.log(location.state.players);
-    const questions = location.state.pickedReshuffledQuestions;
-    const players = location.state.players; */
     navigate(-1);
   };
 
   const saveGame = () => {
     //save the questions
-    console.log(
-      "Session questions: ",
-      location.state.pickedReshuffledQuestions
-    );
+    console.log("Session questions: ", location.state.questions);
     //save the players
     console.log("Session players: ", location.state.players);
     //save the date

@@ -65,12 +65,12 @@ export default function NewGame() {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
     //pick first 5
-    const pickedReshuffledQuestions = reshuffledQuestions.slice(0, 5);
-    console.log(pickedReshuffledQuestions);
+    const questions = reshuffledQuestions.slice(0, 5);
+    console.log(questions);
 
     navigate("/new-game/play", {
       state: {
-        pickedReshuffledQuestions,
+        questions,
         players,
         currentIndex: 0,
         categories: catArray,

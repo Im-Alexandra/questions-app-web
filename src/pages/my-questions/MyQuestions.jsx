@@ -17,55 +17,6 @@ export default function MyQuestions() {
   const navigate = useNavigate();
   const [currentSubPage, setCurrentSubPage] = useState("saved");
 
-  const fakeUser = {
-    displayName: "Saska",
-    photoUrl: "https://imgur.com/a/WcxKBnu",
-    games: {
-      i5zsZST0ksTL7oyw1StI0BZ8Xd23: {
-        date: "04/01/2023",
-        note: "Good game",
-        players: ["Melina", "Katica"],
-        questions: [
-          "bTo0I8p4eRxDaSV1Q91w",
-          "sXTQgyYEopAfsQQjiQC5",
-          "sXTQgyYEopAfsQQjiQC5",
-        ],
-      },
-    },
-    questions: {
-      saved: {
-        "85yz7xyGKkBRbjiPoPw9": {
-          question:
-            "How would you look and behave if you were a Professor of Happiness?",
-          tags: ["justMet", "famFriendly", "fun"],
-          players: ["Melina", "Katica", "Saska"],
-        },
-      },
-      favourites: {
-        WEPyyemooR6v43r0AoVp: {
-          question:
-            "In which moment in history of the humanity would you place yourself and why?",
-          tags: ["justMet", "famFriendly", "fun"],
-        },
-        "85yz7xyGKkBRbjiPoPw9": {
-          question:
-            "How would you look and behave if you were a Professor of Happiness?",
-          tags: ["fun"],
-        },
-        kOXnYuNneVcoopXbpJa5: {
-          question: "Test question",
-          tags: ["justMet", "connection"],
-        },
-      },
-      added: {
-        kOXnYuNneVcoopXbpJa5: {
-          question: "Test question",
-          tags: ["justMet", "famFriendly", "fun"],
-        },
-      },
-    },
-  };
-
   return (
     <div className="container my-questions">
       <h2 className="text-center">
@@ -114,13 +65,9 @@ export default function MyQuestions() {
           </div>
         </div>
       </div>
-      {currentSubPage === "saved" && (
-        <Saved questions={fakeUser.questions.saved} />
-      )}
-      {currentSubPage === "favourites" && (
-        <Favourites questions={fakeUser.questions.favourites} />
-      )}
-      {currentSubPage === "add" && <Add questions={fakeUser.questions.added} />}
+      {currentSubPage === "saved" && <Saved />}
+      {currentSubPage === "favourites" && <Favourites />}
+      {currentSubPage === "add" && <Add />}
     </div>
   );
 }

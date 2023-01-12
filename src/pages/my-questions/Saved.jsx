@@ -1,8 +1,15 @@
 import React from "react";
 import "./Saved.css";
 import check from "../../assets/checkWhite.svg";
+import { useCollection } from "../../hooks/useCollection";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
-export default function Saved(props) {
+export default function Saved() {
+  const { user } = useAuthContext();
+  const { documents, isPending, error } = useCollection(
+    `users/${user.uid}/saved`
+  );
+
   const pickCardColor = (tags) => {
     if (tags.includes("romantic")) {
       return "#e26c54";
@@ -27,32 +34,33 @@ export default function Saved(props) {
         <h3>Saved for later</h3>
       </div>
       <div className="content">
-        {props.questions !== undefined &&
-          Object.keys(props.questions).map((q) => (
-            <div
-              className="card"
-              key={q}
-              style={{
-                backgroundColor: pickCardColor(props.questions[q].tags),
-              }}
-            >
-              <p>{props.questions[q].question}</p>
-              <div className="players">
-                {q.players !== undefined &&
-                  props.questions[q].players.map((p) => <p key={p}>{p}</p>)}
-              </div>
-              <div className="icon-wrapper">
-                <div>
-                  <img
-                    src={check}
-                    alt="check icon"
-                    onClick={(e) => handleResolved(e, q)}
-                  />
-                </div>
+        {isPending && <p>Loading...</p>}
+        {documents?.map((q) => (
+          <div
+            className="card"
+            key={q.id}
+            style={{
+              backgroundColor: pickCardColor(q.tags),
+            }}
+          >
+            <p>{q.question}</p>
+            <div className="players">
+              {q.players !== undefined &&
+                q.players.map((p) => <p key={p}>{p}</p>)}
+            </div>
+            <div className="icon-wrapper">
+              <div>
+                <img
+                  src={check}
+                  alt="check icon"
+                  onClick={(e) => handleResolved(e, q)}
+                />
               </div>
             </div>
-          ))}
-        {props.questions === undefined && <p>No saved questions</p>}
+          </div>
+        ))}
+        {documents === undefined && <p>No saved questions</p>}
+        {error && <p className="error">{error}</p>}
       </div>
     </div>
   );

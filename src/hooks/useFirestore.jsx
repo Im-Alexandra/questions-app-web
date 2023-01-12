@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { db } from "../firebase/config";
-import { addDoc, doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection } from "firebase/firestore";
 
 let initialState = {
   document: null,

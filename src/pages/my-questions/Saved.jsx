@@ -3,12 +3,14 @@ import "./Saved.css";
 import check from "../../assets/checkWhite.svg";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
 
 export default function Saved() {
   const { user } = useAuthContext();
   const { documents, isPending, error } = useCollection(
     `users/${user.uid}/saved`
   );
+  const { deleteDocument } = useFirestore(`users/${user.uid}/saved`);
 
   const pickCardColor = (tags) => {
     if (tags.includes("romantic")) {
@@ -22,10 +24,6 @@ export default function Saved() {
     } else {
       return "#46bdc6";
     }
-  };
-
-  const handleResolved = (e, id) => {
-    console.log(id);
   };
 
   return (
@@ -53,13 +51,13 @@ export default function Saved() {
                 <img
                   src={check}
                   alt="check icon"
-                  onClick={(e) => handleResolved(e, q)}
+                  onClick={() => deleteDocument(q.id)}
                 />
               </div>
             </div>
           </div>
         ))}
-        {documents === undefined && <p>No saved questions</p>}
+        {documents && documents.length === 0 && <p>No saved questions</p>}
         {error && <p className="error">{error}</p>}
       </div>
     </div>

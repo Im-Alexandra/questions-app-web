@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { db } from "../firebase/config";
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection, deleteDoc } from "firebase/firestore";
 
 let initialState = {
   document: null,
@@ -17,6 +17,13 @@ const firestoreReducer = (state, action) => {
       return {
         isPending: false,
         document: action.payload,
+        success: true,
+        error: null,
+      };
+    case "DELETED_DOCUMENT":
+      return {
+        isPending: false,
+        document: null,
         success: true,
         error: null,
       };
@@ -44,11 +51,9 @@ export const useFirestore = (col) => {
     idOfNewDoc,
     newDoc
   ) => {
+    dispatch({ type: "IS_PENDING" });
     //collection ref e.g. (db, "users", user.id, "saved", savedQuestionId)
     const ref = doc(db, col, docInMainCol, subColName, idOfNewDoc);
-
-    dispatch({ type: "IS_PENDING" });
-
     try {
       const addedDoc = await setDoc(ref, { ...newDoc });
       dispatch({
@@ -69,11 +74,8 @@ export const useFirestore = (col) => {
     subColName,
     newDoc
   ) => {
-    //collection ref e.g. (db, "users", user.id, "saved", savedQuestionId)
-    //const ref = doc(db, col, docInMainCol, subColName);
-    const ref = doc(collection(db, col, docInMainCol, subColName));
-
     dispatch({ type: "IS_PENDING" });
+    const ref = doc(collection(db, col, docInMainCol, subColName));
     try {
       const addedDoc = await setDoc(ref, { ...newDoc });
       dispatch({
@@ -90,11 +92,9 @@ export const useFirestore = (col) => {
 
   //add document
   const addDocument = async (doc) => {
+    dispatch({ type: "IS_PENDING" });
     //collection ref e.g. (db, "users", user.id)
     const ref = doc(db, col);
-
-    dispatch({ type: "IS_PENDING" });
-
     try {
       const addedDoc = await setDoc(ref, doc);
       dispatch({
@@ -110,7 +110,21 @@ export const useFirestore = (col) => {
   };
 
   //delete document
-  const deleteDocument = async (id) => {};
+  const deleteDocument = async (id) => {
+    dispatch({ type: "IS_PENDING" });
+
+    try {
+      await deleteDoc(doc(db, col, id));
+      dispatch({
+        type: "DELETED_DOCUMENT",
+      });
+    } catch (err) {
+      dispatch({
+        type: "ERROR",
+        payload: err.message,
+      });
+    }
+  };
 
   return {
     addDocument,

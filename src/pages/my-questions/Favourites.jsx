@@ -2,6 +2,7 @@ import React from "react";
 import "./Favourites.css";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
 
 import trash from "../../assets/trash.svg";
 
@@ -10,6 +11,7 @@ export default function Favourites() {
   const { documents, isPending, error } = useCollection(
     `users/${user.uid}/favourites`
   );
+  const { deleteDocument } = useFirestore(`users/${user.uid}/favourites`);
 
   const pickCardColor = (tags) => {
     if (tags.includes("romantic")) {
@@ -23,11 +25,6 @@ export default function Favourites() {
     } else {
       return "#46bdc6";
     }
-  };
-
-  const handleClick = (e, id) => {
-    const questionToDelete = id;
-    console.log(questionToDelete);
   };
 
   return (
@@ -51,13 +48,13 @@ export default function Favourites() {
                 <img
                   src={trash}
                   alt="check icon"
-                  onClick={(e) => handleClick(e, q)}
+                  onClick={(e) => deleteDocument(q.id)}
                 />
               </div>
             </div>
           </div>
         ))}
-        {documents === undefined && <p>No favourite questions</p>}
+        {documents && documents.length === 0 && <p>No favourite questions</p>}
         {error && <p className="error">{error}</p>}
       </div>
     </div>

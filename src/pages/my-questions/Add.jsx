@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Add.css";
 import CategoryPicker from "../../components/CategoryPicker";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function Add() {
   const [newQuestion, setNewQuestion] = useState("");
+  const [error, setError] = useState(null);
+  const { user } = useAuthContext();
+  const { addDocToSubcollectionNewId, response } = useFirestore("users");
 
   //category picker state
   const [option1, setOption1] = useState("");
@@ -30,6 +35,7 @@ export default function Add() {
   };
 
   const handleAddQuestion = () => {
+    setError(null);
     const tags = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
@@ -37,8 +43,21 @@ export default function Add() {
       question: newQuestion,
       tags: tags,
     };
-    console.log(questionToAdd);
+    if (newQuestion !== "") {
+      addDocToSubcollectionNewId(user.uid, "added", questionToAdd);
+    } else {
+      setError("Please type in the question");
+    }
   };
+
+  //fires when success from response changes
+  useEffect(() => {
+    if (response.success) {
+      //TODO: add animation to show success
+      console.log("success");
+      setNewQuestion("");
+    }
+  }, [response.success]);
 
   return (
     <div className="add">
@@ -73,6 +92,7 @@ export default function Add() {
           Add question
         </button>
       </div>
+      {error && <p className="error text-center">{error}</p>}
     </div>
   );
 }

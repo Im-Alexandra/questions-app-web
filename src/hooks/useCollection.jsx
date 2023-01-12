@@ -1,38 +1,33 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 export const useCollection = (col) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
-  const [isPending, setIsPending] = useState(false);
   //const q = query(collection(db, "questions"), where("capital", "==", true));
 
   //realtime data for the collection
   useEffect(() => {
-    const fetchData = async () => {
-      setIsPending(true);
-      try {
-        const querySnapshot = await getDocs(collection(db, col));
-        let tempArray = [];
-        querySnapshot.forEach((doc) => {
-          tempArray.push({ ...doc.data(), id: doc.id });
+    let ref = collection(db, col);
+    const unsub = onSnapshot(
+      ref,
+      (snapshot) => {
+        let results = [];
+        snapshot.docs.forEach((doc) => {
+          results.push({ ...doc.data(), id: doc.id });
         });
-        if (querySnapshot.docs.length > 0) {
-          setDocuments([...tempArray]);
-          setError(null);
-        } else {
-          setDocuments(undefined);
-          setError("No such collection exists");
-        }
-      } catch (err) {
-        setError(err.message);
+        setDocuments(results);
+        setError(null);
+      },
+      (error) => {
+        console.log(error);
+        setError("Couldnt fetch the data");
       }
-      setIsPending(false);
-    };
+    );
 
-    fetchData();
+    return () => unsub();
   }, [col]);
 
-  return { documents, error, isPending };
+  return { documents, error };
 };

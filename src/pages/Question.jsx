@@ -12,6 +12,7 @@ export default function Question() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { addDocToSubcollection, response } = useFirestore("users");
+  //using this to know which subcollection was just updated
   const [subcol, setSubCol] = useState("");
   //weird state alert
   const location = useLocation();

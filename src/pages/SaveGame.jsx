@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SaveGame.css";
+import { useFirestore } from "../hooks/useFirestore";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 import close from "../assets/closeWhite.svg";
 import arrowLeft from "../assets/leftArrowWhite.svg";
 import trash from "../assets/trash.svg";
 import InfoModal from "../components/InfoModal";
 
 export default function SaveGame() {
+  const { user } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [note, setNote] = useState("");
+  const { addDocToSubcollectionNewId, response } = useFirestore("users");
 
   const handleKeyUp = (e) => {
     const current = e.target.value.length;
@@ -23,20 +28,30 @@ export default function SaveGame() {
   };
 
   const saveGame = () => {
-    //save the questions
-    console.log("Session questions: ", location.state.questions);
-    //save the players
-    console.log("Session players: ", location.state.players);
-    //save the date
     const date = new Date().toLocaleString([], {
       year: "numeric",
       month: "numeric",
       day: "numeric",
     });
-    console.log("Session date: ", date);
-    //save the note
-    console.log("Session note: ", note);
+    const game = {
+      players: location.state.players,
+      questions: location.state.questions,
+      date,
+      note,
+    };
+    console.log(game);
+    console.log(user.uid);
+    addDocToSubcollectionNewId(user.uid, "games", game);
   };
+
+  //fires when success from response changes
+  useEffect(() => {
+    if (response.success) {
+      //TODO: add animation to show success
+      console.log("success");
+      navigate("/home");
+    }
+  }, [response.success, navigate]);
 
   return (
     <div className="save-game-container">

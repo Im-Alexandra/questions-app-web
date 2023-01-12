@@ -16,9 +16,6 @@ export const useCollection = (col) => {
         const querySnapshot = await getDocs(collection(db, col));
         let tempArray = [];
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          //console.log(doc.id, " => ", doc.data());
-          //console.log(doc.data());
           tempArray.push({ ...doc.data(), id: doc.id });
         });
         if (querySnapshot.docs.length > 0) {

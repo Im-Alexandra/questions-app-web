@@ -1,26 +1,36 @@
 import React from "react";
-import "./Saved.css";
-import check from "../../assets/checkWhite.svg";
+import "./AddedQuestions.css";
+import { useNavigate } from "react-router-dom";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useFirestore } from "../../hooks/useFirestore";
 import { useStyles } from "../../hooks/useStyles";
+import { useFirestore } from "../../hooks/useFirestore";
 import Masonry from "react-masonry-css";
 
-export default function Saved() {
+import arrow from "../../assets/leftArrowOrange.svg";
+import trash from "../../assets/trash.svg";
+
+export default function AddedQuestions() {
   const { pickCardColor } = useStyles();
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const { documents, isPending, error } = useCollection(
-    `users/${user.uid}/saved`
+    `users/${user.uid}/added`
   );
-  const { deleteDocument } = useFirestore(`users/${user.uid}/saved`);
+  const { deleteDocument } = useFirestore(`users/${user.uid}/added`);
   const masonryBreakpoints = { default: 3, 1100: 2, 700: 1 };
 
   return (
-    <div className="saved-questions">
-      <div className="heading text-center">
-        <h3>Saved for later</h3>
-      </div>
+    <div className="container added-questions">
+      <h2 className="text-center">
+        <img
+          src={arrow}
+          alt="arrow"
+          className="go-back"
+          onClick={() => navigate(-1)}
+        />
+        Added questions
+      </h2>
       <div className="content">
         {isPending && <p>Loading...</p>}
         <Masonry
@@ -37,14 +47,15 @@ export default function Saved() {
               }}
             >
               <p>{q.question}</p>
-              <div className="players">
-                {q.players !== undefined &&
-                  q.players.map((p) => <p key={p}>{p}</p>)}
-              </div>
+              <p className="subheadline">Category:</p>
+              <ul className="tags">
+                {q.tags !== undefined &&
+                  q.tags.map((p) => <li key={p}>{p}</li>)}
+              </ul>
               <div className="icon-wrapper">
                 <div>
                   <img
-                    src={check}
+                    src={trash}
                     alt="check icon"
                     onClick={() => deleteDocument(q.id)}
                   />

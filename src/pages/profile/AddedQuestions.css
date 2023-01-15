@@ -1,0 +1,36 @@
+.added-questions .tags {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  padding: 0;
+  gap: 15px;
+  margin-top: 0;
+  font-size: 0.9em;
+  margin-bottom: 0;
+}
+.added-questions .tags li {
+  flex: 1;
+}
+.added-questions .subheadline {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 0.9em;
+}
+.added-questions .tags p {
+  margin: 0;
+}
+.added-questions .tags li:after {
+  content: ", ";
+}
+.added-questions .tags li:last-child:after {
+  content: "";
+}
+.added-questions .tags p:first-child:after {
+  content: " ";
+}
+.added-questions .icon-wrapper img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-top: 1em;
+}

@@ -7,7 +7,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
+import MyGames from "./pages/profile/MyGames";
+import AddedQuestions from "./pages/profile/AddedQuestions";
 import BotNavbar from "./components/BotNavbar";
 import NewGame from "./pages/NewGame";
 import MyQuestions from "./pages/my-questions/MyQuestions.jsx";
@@ -38,6 +40,14 @@ function App() {
             <Route
               path="/profile"
               element={user ? <Profile /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile/game-records"
+              element={user ? <MyGames /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile/added-questions"
+              element={user ? <AddedQuestions /> : <Navigate to="/login" />}
             />
             <Route
               path="/new-game"

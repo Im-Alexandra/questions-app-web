@@ -1,3 +1,7 @@
+.cat-picker {
+  max-width: 350px;
+  margin: auto;
+}
 .cat-picker .options-container {
   display: flex;
   justify-content: center;
@@ -15,6 +19,7 @@
   color: var(--dark-blue);
   height: 38px;
   font-family: "Quicksand_bold";
+  cursor: pointer;
 }
 .cat-picker .options-container label:last-child {
   border-radius: 0 4px 4px 0;
@@ -39,8 +44,12 @@
 .cat-picker .icon {
   width: 20px;
   margin-left: 6px;
+  cursor: pointer;
 }
 .cat-picker .p-with-icon {
   display: flex;
   align-items: baseline;
+}
+.cat-picker h3 {
+  margin-bottom: 0;
 }

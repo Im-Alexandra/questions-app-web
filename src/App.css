@@ -57,6 +57,26 @@ input:focus {
   border: 1px solid var(--blue);
 }
 
+/* MASONRY CSS */
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -10px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 20px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 20px;
+}
+
 /* COMMON CLASSES */
 .app {
   max-width: 800px;
@@ -100,4 +120,20 @@ input:focus {
   width: 20px;
   margin-right: 20px;
   cursor: pointer;
+}
+.no-margin-top {
+  margin-top: 0;
+}
+/* card item */
+.content .card {
+  border-radius: 10px;
+  padding: 15px 20px;
+  color: white;
+  font-size: 1.2em;
+  font-family: "Quicksand_Bold";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

@@ -5,10 +5,11 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useStyles } from "../../hooks/useStyles";
 import { useFirestore } from "../../hooks/useFirestore";
-import Masonry from "react-masonry-css";
+import { AnimatePresence, motion } from "framer-motion";
 
 import arrow from "../../assets/leftArrowOrange.svg";
 import trash from "../../assets/trash.svg";
+import ItemList from "../../components/ItemList";
 
 export default function AddedQuestions() {
   const { pickCardColor } = useStyles();
@@ -18,7 +19,6 @@ export default function AddedQuestions() {
     `users/${user.uid}/added`
   );
   const { deleteDocument } = useFirestore(`users/${user.uid}/added`);
-  const masonryBreakpoints = { default: 3, 1100: 2, 700: 1 };
 
   return (
     <div className="container added-questions">
@@ -31,15 +31,19 @@ export default function AddedQuestions() {
         />
         Added questions
       </h2>
-      <div className="content">
-        {isPending && <p>Loading...</p>}
-        <Masonry
-          breakpointCols={masonryBreakpoints}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
+      <ItemList
+        documents={documents}
+        isPending={isPending}
+        error={error}
+        noDocsMessage={"No added questions"}
+      >
+        <AnimatePresence mode={"popLayout"}>
           {documents?.map((q) => (
-            <div
+            <motion.div
+              layout
+              animate={{ opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring" }}
               className="card"
               key={q.id}
               style={{
@@ -61,12 +65,10 @@ export default function AddedQuestions() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </Masonry>
-        {documents && documents.length === 0 && <p>No saved questions</p>}
-        {error && <p className="error">{error}</p>}
-      </div>
+        </AnimatePresence>
+      </ItemList>
     </div>
   );
 }

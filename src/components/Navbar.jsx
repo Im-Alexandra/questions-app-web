@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import logo from "../assets/logo.svg";
+import Spinner from "./Spinner";
 
 export default function Navbar() {
   const { user } = useAuthContext();
@@ -30,7 +31,11 @@ export default function Navbar() {
         {user && (
           <li className="align-right">
             {!isPending && <span onClick={logout}>Logout</span>}
-            {isPending && <span disabled>Loading</span>}
+            {isPending && (
+              <span disabled>
+                <Spinner color="var(--black-spinner)" />
+              </span>
+            )}
           </li>
         )}
       </ul>

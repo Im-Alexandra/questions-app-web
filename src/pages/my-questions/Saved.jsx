@@ -5,7 +5,8 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useStyles } from "../../hooks/useStyles";
-import Masonry from "react-masonry-css";
+import { AnimatePresence, motion } from "framer-motion";
+import ItemList from "../../components/ItemList";
 
 export default function Saved() {
   const { pickCardColor } = useStyles();
@@ -14,22 +15,31 @@ export default function Saved() {
     `users/${user.uid}/saved`
   );
   const { deleteDocument } = useFirestore(`users/${user.uid}/saved`);
-  const masonryBreakpoints = { default: 3, 1100: 2, 700: 1 };
 
   return (
-    <div className="saved-questions">
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="saved-questions"
+    >
       <div className="heading text-center">
-        <h3>Saved for later</h3>
+        <h3 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }}>
+          Saved for later
+        </h3>
       </div>
-      <div className="content">
-        {isPending && <p>Loading...</p>}
-        <Masonry
-          breakpointCols={masonryBreakpoints}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
+      <ItemList
+        documents={documents}
+        isPending={isPending}
+        error={error}
+        noDocsMessage={"No saved questions"}
+      >
+        <AnimatePresence mode={"popLayout"}>
           {documents?.map((q) => (
-            <div
+            <motion.div
+              layout
+              animate={{ opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring" }}
               className="card"
               key={q.id}
               style={{
@@ -50,12 +60,10 @@ export default function Saved() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </Masonry>
-        {documents && documents.length === 0 && <p>No saved questions</p>}
-        {error && <p className="error">{error}</p>}
-      </div>
-    </div>
+        </AnimatePresence>
+      </ItemList>
+    </motion.div>
   );
 }

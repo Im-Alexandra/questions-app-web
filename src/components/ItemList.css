@@ -1,0 +1,136 @@
+.item-list {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.item-list .card {
+  border-radius: 10px;
+  padding: 15px 20px;
+  color: white;
+  font-size: 1.2em;
+  font-family: "Quicksand_Bold";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 0%;
+  flex: 1;
+  min-width: 200px;
+  max-width: 356px;
+  position: relative;
+}
+/* GAME RECORDS PAGE */
+.game-records .item-list .card {
+  margin-bottom: 30px;
+}
+.game-records .players {
+  display: flex;
+  max-width: 250px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+.game-records .players p {
+  margin: 0;
+  text-transform: uppercase;
+}
+.game-records .players p:after {
+  content: ", ";
+}
+.game-records .players p:last-child:after {
+  content: "";
+}
+.game-records .note {
+  font-size: 0.7em;
+  line-height: 0.9em;
+  margin-top: 0;
+}
+.game-records .date {
+  color: var(--orange);
+  font-family: "Quicksand_Bold";
+  margin-top: -14px;
+  position: absolute;
+  bottom: -50px;
+}
+/* FAVOURITES & SAVED */
+.item-list .icon-wrapper img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+/* SAVED */
+.saved-questions .players {
+  display: flex;
+  max-width: 250px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+.saved-questions .players p {
+  margin: 0;
+  text-transform: uppercase;
+}
+.saved-questions .players p:after {
+  content: " &";
+}
+.saved-questions .players p:last-child:after {
+  content: "";
+}
+.saved-questions .icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.saved-questions .icon-wrapper div {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+/* ADDED QUESTIONS */
+.added-questions .tags {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  padding: 0;
+  gap: 15px;
+  margin-top: 0;
+  font-size: 0.9em;
+  margin-bottom: 0;
+}
+.added-questions .tags li {
+  flex: 1;
+}
+.added-questions .subheadline {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: 0.9em;
+}
+.added-questions .tags p {
+  margin: 0;
+}
+.added-questions .tags li:after {
+  content: ", ";
+}
+.added-questions .tags li:last-child:after {
+  content: "";
+}
+.added-questions .tags p:first-child:after {
+  content: " ";
+}
+.added-questions .icon-wrapper img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-top: 1em;
+}

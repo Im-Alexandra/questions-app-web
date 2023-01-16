@@ -3,6 +3,7 @@ import "./Add.css";
 import CategoryPicker from "../../components/CategoryPicker";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { motion } from "framer-motion";
 
 export default function Add() {
   const [newQuestion, setNewQuestion] = useState("");
@@ -60,7 +61,11 @@ export default function Add() {
   }, [response.success]);
 
   return (
-    <div className="add">
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="add"
+    >
       <div className="heading text-center">
         <h3>Add a new question</h3>
       </div>
@@ -93,6 +98,6 @@ export default function Add() {
         </button>
       </div>
       {error && <p className="error text-center">{error}</p>}
-    </div>
+    </motion.div>
   );
 }

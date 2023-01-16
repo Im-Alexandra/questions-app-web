@@ -20,6 +20,8 @@
   --dark-blue: #2f5e63;
   --yellow: #e5d96e;
   --black: #444444;
+  --blue-spinner: #46bdc675;
+  --black-spinner: #44444457;
 }
 
 /* CSS RESET */
@@ -123,17 +125,4 @@ input:focus {
 }
 .no-margin-top {
   margin-top: 0;
-}
-/* card item */
-.content .card {
-  border-radius: 10px;
-  padding: 15px 20px;
-  color: white;
-  font-size: 1.2em;
-  font-family: "Quicksand_Bold";
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }

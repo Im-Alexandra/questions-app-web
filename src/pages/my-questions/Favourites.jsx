@@ -4,9 +4,10 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useStyles } from "../../hooks/useStyles";
-import Masonry from "react-masonry-css";
+import { AnimatePresence, motion } from "framer-motion";
 
 import trash from "../../assets/trash.svg";
+import ItemList from "../../components/ItemList";
 
 export default function Favourites() {
   const { pickCardColor } = useStyles();
@@ -15,22 +16,29 @@ export default function Favourites() {
     `users/${user.uid}/favourites`
   );
   const { deleteDocument } = useFirestore(`users/${user.uid}/favourites`);
-  const masonryBreakpoints = { default: 3, 1100: 2, 700: 1 };
 
   return (
-    <div className="favourites">
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="favourites"
+    >
       <div className="heading text-center">
         <h3>Favourites</h3>
       </div>
-      <div className="content">
-        {isPending && <p>Loading...</p>}
-        <Masonry
-          breakpointCols={masonryBreakpoints}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
+      <ItemList
+        documents={documents}
+        isPending={isPending}
+        error={error}
+        noDocsMessage={"No favourite questions"}
+      >
+        <AnimatePresence mode={"popLayout"}>
           {documents?.map((q) => (
-            <div
+            <motion.div
+              layout
+              animate={{ opacity: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring" }}
               className="card"
               key={q.id}
               style={{
@@ -47,12 +55,10 @@ export default function Favourites() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </Masonry>
-        {documents && documents.length === 0 && <p>No favourite questions</p>}
-        {error && <p className="error">{error}</p>}
-      </div>
-    </div>
+        </AnimatePresence>
+      </ItemList>
+    </motion.div>
   );
 }

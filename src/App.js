@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 //pages
@@ -15,60 +21,64 @@ import NewGame from "./pages/NewGame";
 import MyQuestions from "./pages/my-questions/MyQuestions.jsx";
 import Question from "./pages/Question";
 import SaveGame from "./pages/SaveGame";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
+  const location = useLocation();
   const { user } = useAuthContext();
   const { authIsReady } = useAuthContext();
   return (
     <div className="app">
       {authIsReady && (
-        <BrowserRouter>
+        <>
           <Navbar />
-          <Routes>
-            <Route
-              path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/login"
-              element={user ? <Navigate to="/" /> : <Login />}
-            />
-            <Route
-              path="/register"
-              element={user ? <Navigate to="/" /> : <Register />}
-            />
-            <Route
-              path="/profile"
-              element={user ? <Profile /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/profile/game-records"
-              element={user ? <MyGames /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/profile/added-questions"
-              element={user ? <AddedQuestions /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/new-game"
-              element={user ? <NewGame /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/my-questions"
-              element={user ? <MyQuestions /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/new-game/play"
-              element={user ? <Question /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/new-game/save"
-              element={user ? <SaveGame /> : <Navigate to="/login" />}
-            />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          <AnimatePresence>
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/"
+                element={user ? <Home /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/login"
+                element={user ? <Navigate to="/" /> : <Login />}
+              />
+              <Route
+                path="/register"
+                element={user ? <Navigate to="/" /> : <Register />}
+              />
+              <Route
+                path="/profile"
+                element={user ? <Profile /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/profile/game-records"
+                element={user ? <MyGames /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/profile/added-questions"
+                element={user ? <AddedQuestions /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/new-game"
+                element={user ? <NewGame /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/my-questions"
+                element={user ? <MyQuestions /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/new-game/play"
+                element={user ? <Question /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/new-game/save"
+                element={user ? <SaveGame /> : <Navigate to="/login" />}
+              />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </AnimatePresence>
           {user && <BotNavbar />}
-        </BrowserRouter>
+        </>
       )}
     </div>
   );

@@ -11,6 +11,22 @@ import arrow from "../../assets/leftArrowOrange.svg";
 import trash from "../../assets/trash.svg";
 import ItemList from "../../components/ItemList";
 
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
+
 export default function AddedQuestions() {
   const { pickCardColor } = useStyles();
   const navigate = useNavigate();
@@ -21,7 +37,13 @@ export default function AddedQuestions() {
   const { deleteDocument } = useFirestore(`users/${user.uid}/added`);
 
   return (
-    <div className="container added-questions">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container added-questions"
+    >
       <h2 className="text-center">
         <img
           src={arrow}
@@ -69,6 +91,6 @@ export default function AddedQuestions() {
           ))}
         </AnimatePresence>
       </ItemList>
-    </div>
+    </motion.div>
   );
 }

@@ -1,11 +1,28 @@
 import React, { useRef, useState } from "react";
 import "./NewGame.css";
 import { useNavigate } from "react-router-dom";
+import { useCollection } from "../hooks/useCollection";
+import { motion } from "framer-motion";
 
 import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
-import { useCollection } from "../hooks/useCollection";
 import CategoryPicker from "../components/CategoryPicker";
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
 
 export default function NewGame() {
   const navigate = useNavigate();
@@ -91,7 +108,13 @@ export default function NewGame() {
   };
 
   return (
-    <div className="container new-game">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container new-game"
+    >
       <h2 className="text-center">
         <img
           src={arrow}
@@ -146,6 +169,6 @@ export default function NewGame() {
       <button className="btn mt-38 full-width" onClick={playGame}>
         Start new game
       </button>
-    </div>
+    </motion.div>
   );
 }

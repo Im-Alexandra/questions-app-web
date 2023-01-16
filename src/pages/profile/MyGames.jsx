@@ -8,6 +8,22 @@ import ItemList from "../../components/ItemList";
 import "./MyGames.css";
 import arrow from "../../assets/leftArrowOrange.svg";
 
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
+
 export default function MyGames() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -16,7 +32,13 @@ export default function MyGames() {
   );
 
   return (
-    <div className="container game-records">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container game-records"
+    >
       <h2 className="text-center">
         <img
           src={arrow}
@@ -57,6 +79,6 @@ export default function MyGames() {
           ))}
         </AnimatePresence>
       </ItemList>
-    </div>
+    </motion.div>
   );
 }

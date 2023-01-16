@@ -2,11 +2,29 @@ import React, { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import { motion } from "framer-motion";
+
 import arrow from "../../assets/leftArrowOrange.svg";
 import emailIcon from "../../assets/email.svg";
 import passwordIcon from "../../assets/password.svg";
 import nameIcon from "../../assets/profileGreen.svg";
 import editIcon from "../../assets/penOrange.svg";
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
 
 export default function Profile() {
   const anonymousPhoto =
@@ -18,7 +36,13 @@ export default function Profile() {
   const [password, setPassword] = useState(user.password);
 
   return (
-    <div className="container profile">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container profile"
+    >
       <h2 className="text-center">
         <img
           src={arrow}
@@ -118,6 +142,6 @@ export default function Profile() {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

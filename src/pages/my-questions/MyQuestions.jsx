@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./MyQuestions.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import arrow from "../../assets/leftArrowOrange.svg";
 import timeWhite from "../../assets/timeWhite.svg";
@@ -13,12 +14,34 @@ import Saved from "./Saved";
 import Favourites from "./Favourites";
 import Add from "./Add";
 
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
+
 export default function MyQuestions() {
   const navigate = useNavigate();
   const [currentSubPage, setCurrentSubPage] = useState("saved");
 
   return (
-    <div className="container my-questions">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container my-questions"
+    >
       <h2 className="text-center">
         <img
           src={arrow}
@@ -68,6 +91,6 @@ export default function MyQuestions() {
       {currentSubPage === "saved" && <Saved />}
       {currentSubPage === "favourites" && <Favourites />}
       {currentSubPage === "add" && <Add />}
-    </div>
+    </motion.div>
   );
 }

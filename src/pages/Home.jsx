@@ -2,6 +2,23 @@ import React, { useState } from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { motion } from "framer-motion";
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.1 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 },
+  },
+};
 
 export default function Home() {
   const [questionOfTheDay, setQuestionOfTheDay] = useState(null);
@@ -9,7 +26,13 @@ export default function Home() {
   const [isPending, setIsPending] = useState(true);
 
   return (
-    <div className="container">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="container"
+    >
       <h2>Question of the day:</h2>
       {questionOfTheDay && <p>{questionOfTheDay.question}</p>}
       <h2>Conversation starters:</h2>
@@ -66,6 +89,6 @@ export default function Home() {
         Curabitur sollicitudin mi libero, sit amet vestibulum velit laoreet sed.
         Proin sagittis leo vel elit dapibus, vehicula finibus ex maximus.
       </p>
-    </div>
+    </motion.div>
   );
 }

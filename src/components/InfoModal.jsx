@@ -1,14 +1,39 @@
 import React from "react";
 import "./InfoModal.css";
 import close from "../assets/closeBlack.svg";
+import { motion } from "framer-motion";
+
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const modalVariants = {
+  hidden: { y: "-100vh", opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { delay: 0.3 } },
+  exit: { opacity: 0 },
+};
 
 export default function InfoModal({ children, handleClose }) {
   return (
-    <div className="infoModal-backdrop">
-      <div className="infoModal">
+    <motion.div
+      variants={backdropVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="infoModal-backdrop"
+    >
+      <motion.div
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="infoModal"
+      >
         <img src={close} alt="close icon" onClick={handleClose} />
         {children}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

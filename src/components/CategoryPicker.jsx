@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CategoryPicker.css";
 import infoIcon from "../assets/infoIcon.svg";
 import InfoModal from "../components/InfoModal";
+import { AnimatePresence } from "framer-motion";
 
 export default function CategoryPicker(props) {
   const [showModal, setShowModal] = useState(false);
@@ -113,21 +114,23 @@ export default function CategoryPicker(props) {
         </label>
       </div>
 
-      {showModal && (
-        <InfoModal
-          handleClose={() => {
-            setShowModal(false);
-          }}
-        >
-          <h2>Modal</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            gravida pellentesque est. Vestibulum blandit metus non mauris
-            fermentum, nec lobortis dui pulvinar. Quisque pulvinar ipsum arcu,
-            ut varius ipsum laoreet eu.
-          </p>
-        </InfoModal>
-      )}
+      <AnimatePresence mode="wait">
+        {showModal && (
+          <InfoModal
+            handleClose={() => {
+              setShowModal(false);
+            }}
+          >
+            <h2>Modal</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              gravida pellentesque est. Vestibulum blandit metus non mauris
+              fermentum, nec lobortis dui pulvinar. Quisque pulvinar ipsum arcu,
+              ut varius ipsum laoreet eu.
+            </p>
+          </InfoModal>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

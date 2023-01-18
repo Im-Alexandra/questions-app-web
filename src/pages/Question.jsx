@@ -7,6 +7,22 @@ import leftArrow from "../assets/leftArrowWhite.svg";
 import time from "../assets/timeWhite.svg";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { AnimatePresence, motion } from "framer-motion";
+
+import svg0 from "../assets/background/0.svg";
+import svg1 from "../assets/background/1.svg";
+import svg2 from "../assets/background/2.svg";
+import svg3 from "../assets/background/3.svg";
+import svg4 from "../assets/background/4.svg";
+import svg5 from "../assets/background/5.svg";
+import svg6 from "../assets/background/6.svg";
+import svg7 from "../assets/background/7.svg";
+import svg8 from "../assets/background/8.svg";
+import svg9 from "../assets/background/9.svg";
+import svg10 from "../assets/background/10.svg";
+import svg11 from "../assets/background/11.svg";
+import svg12 from "../assets/background/12.svg";
+import svg13 from "../assets/background/13.svg";
 
 export default function Question() {
   const navigate = useNavigate();
@@ -85,11 +101,18 @@ export default function Question() {
         />
         {location.state.questions.length !== 0 && (
           <>
-            <p className="question">
-              {location.state.questions[currentIndex].question}
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={location.state.questions[currentIndex].question}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="question"
+              >
+                {location.state.questions[currentIndex].question}
+              </motion.p>
+            </AnimatePresence>
             {response.error && <p className="error">{response.error}</p>}
-
             <div className="controls">
               <div className="top">
                 <img
@@ -101,7 +124,8 @@ export default function Question() {
               </div>
 
               <div className="mid">
-                <img
+                <motion.img
+                  whileTap={{ scale: 0.5, rotate: 0 }}
                   className="controls-icon"
                   src={leftArrow}
                   alt="left"
@@ -112,7 +136,9 @@ export default function Question() {
                     {currentIndex + 1}/{location.state.questions.length}
                   </p>
                 )}
-                <img
+                <motion.img
+                  whileTap={{ scale: 0.5 }}
+                  style={{ rotate: 180 }}
                   className="controls-icon"
                   src={leftArrow}
                   alt="right"
@@ -142,6 +168,22 @@ export default function Question() {
             </p>
           </>
         )}
+        <div className="svg-wrapper">
+          <img src={svg0} alt="floating background" />
+          <img src={svg1} alt="floating background" />
+          <img src={svg2} alt="floating background" />
+          <img src={svg3} alt="floating background" />
+          <img src={svg4} alt="floating background" />
+          <img src={svg5} alt="floating background" />
+          <img src={svg6} alt="floating background" />
+          <img src={svg7} alt="floating background" />
+          <img src={svg8} alt="floating background" />
+          <img src={svg9} alt="floating background" />
+          <img src={svg10} alt="floating background" />
+          <img src={svg11} alt="floating background" />
+          <img src={svg12} alt="floating background" />
+          <img src={svg13} alt="floating background" />
+        </div>
       </div>
     </div>
   );

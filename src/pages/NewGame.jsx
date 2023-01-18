@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./NewGame.css";
 import { useNavigate } from "react-router-dom";
 import { useCollection } from "../hooks/useCollection";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
@@ -22,6 +22,12 @@ const pageVariants = {
     opacity: 0,
     transition: { duration: 0.1 },
   },
+};
+
+const playerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 export default function NewGame() {
@@ -61,20 +67,11 @@ export default function NewGame() {
 
     //get back all the eligible questions and reshuffle them
     const filteredDocs = documents.filter((doc) => {
-      /* console.log(doc.tags);
-      console.log(catArray.every((ai) => doc.tags.includes(ai))); */
       if (doc.tags.every((ai) => catArray.includes(ai))) {
         return true;
       } else {
         return false;
       }
-      /* console.log(doc.tags);
-      console.log(catArray.some((ai) => doc.tags.includes(ai)));
-      if (catArray.some((ai) => doc.tags.includes(ai))) {
-        return true;
-      } else {
-        return false;
-      } */
     });
     console.log(filteredDocs);
     const reshuffledQuestions = filteredDocs
@@ -144,21 +141,49 @@ export default function NewGame() {
           </button>
         </div>
       </label>
-      {players.length === 4 && <p className="error">Maximum players reached</p>}
+      <AnimatePresence>
+        {players.length === 4 && (
+          <motion.p
+            variants={playerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="error"
+          >
+            Maximum players reached
+          </motion.p>
+        )}
+      </AnimatePresence>
       <div className="current-players">
-        {players.length !== 0 && <p>Current players:</p>}
-        {players.map((p, i) => (
-          <p key={p}>
-            {i + 1}. {p}
-            <img
-              src={deleteIcon}
-              alt="remove player"
-              onClick={() => handlePlayerDelete(p)}
-            />
-          </p>
-        ))}
+        <AnimatePresence>
+          {players.length !== 0 && (
+            <motion.p
+              variants={playerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              Current players:
+            </motion.p>
+          )}
+          {players.map((p, i) => (
+            <motion.p
+              variants={playerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              key={p}
+            >
+              {i + 1}. {p}
+              <img
+                src={deleteIcon}
+                alt="remove player"
+                onClick={() => handlePlayerDelete(p)}
+              />
+            </motion.p>
+          ))}
+        </AnimatePresence>
       </div>
-
       <CategoryPicker
         option1={option1}
         option2={option2}

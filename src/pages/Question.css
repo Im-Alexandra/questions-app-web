@@ -62,3 +62,72 @@
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+
+.svg-wrapper img {
+  width: 30px;
+  animation: animate 25s linear infinite;
+  position: absolute;
+  bottom: -150px;
+}
+.svg-wrapper img:nth-child(1) {
+  position: absolute;
+  width: 10px;
+  top: 55%;
+  left: 29%;
+}
+.svg-wrapper img:nth-child(2) {
+  position: absolute;
+  width: 38px;
+  top: 5%;
+  left: 15%;
+}
+.svg-wrapper img:nth-child(3) {
+  position: absolute;
+  width: 33px;
+  top: 75%;
+  left: 11%;
+}
+.svg-wrapper img:nth-child(4) {
+  position: absolute;
+  width: 43px;
+  top: 48%;
+  right: 15%;
+}
+.svg-wrapper img:nth-child(5) {
+  position: absolute;
+  width: 20px;
+  top: 15%;
+  right: 15%;
+}
+.svg-wrapper img:nth-child(8) {
+  position: absolute;
+  width: 20px;
+  top: 88%;
+  right: 10%;
+}
+.svg-wrapper img:nth-child(9) {
+  position: absolute;
+  width: 25px;
+  top: 58%;
+  right: 30%;
+}
+.svg-wrapper img:nth-child(12) {
+  position: absolute;
+  width: 13px;
+  top: 8%;
+  right: 45%;
+}
+.svg-wrapper img:nth-child(13) {
+  position: absolute;
+  width: 13px;
+  top: 10%;
+  left: 11%;
+  rotate: 90deg;
+}
+.svg-wrapper img:nth-child(14) {
+  position: absolute;
+  width: 15px;
+  top: 45%;
+  left: 15%;
+  rotate: 90deg;
+}

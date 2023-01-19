@@ -121,12 +121,11 @@ export default function CategoryPicker(props) {
               setShowModal(false);
             }}
           >
-            <h2>Modal</h2>
+            <h2>Family friendly</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-              gravida pellentesque est. Vestibulum blandit metus non mauris
-              fermentum, nec lobortis dui pulvinar. Quisque pulvinar ipsum arcu,
-              ut varius ipsum laoreet eu.
+              Family friendly questions are questions devoid of material which
+              is deemed innappropriate for children, such as sexually explicit
+              questions.
             </p>
           </InfoModal>
         )}

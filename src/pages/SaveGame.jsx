@@ -3,11 +3,28 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./SaveGame.css";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { motion } from "framer-motion";
 
 import close from "../assets/closeWhite.svg";
 import arrowLeft from "../assets/leftArrowWhite.svg";
 import trash from "../assets/trash.svg";
 import InfoModal from "../components/InfoModal";
+
+const pageVariants = {
+  hidden: { opacity: 0, x: "100vw", rotate: 50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    rotate: 0,
+    transition: { type: "spring", duration: 0.7 },
+  },
+  exit: {
+    opacity: 0,
+    x: "-100vw",
+    rotate: -50,
+    transition: { type: "spring", duration: 0.7 },
+  },
+};
 
 export default function SaveGame() {
   const { user } = useAuthContext();
@@ -24,7 +41,23 @@ export default function SaveGame() {
   };
 
   const handleLeftArrowClick = () => {
+    /* const questions = location.state.questions;
+    const players = location.state.players;
+    const currentIndex = location.state.questions.length;
+    const categories = location.state.categories;
+    console.log("questions: ", location.state.questions);
+    console.log("players: ", location.state.players);
+    console.log("index: ", location.state.questions.length);
+    console.log("categories: ", location.state.categories); */
     navigate(-1);
+    /* navigate("/new-game/play", {
+      state: {
+        questions: questions,
+        players: players,
+        currentIndex: currentIndex,
+        categories: categories,
+      },
+    }); */
   };
 
   const saveGame = () => {
@@ -54,9 +87,16 @@ export default function SaveGame() {
   }, [response.success, navigate]);
 
   return (
-    <div className="save-game-container">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="save-game-container"
+    >
       <div className="save-game-page">
-        <img
+        <motion.img
+          whileTap={{ scale: 1.5 }}
           className="icon"
           src={close}
           alt="close icon"
@@ -91,15 +131,27 @@ export default function SaveGame() {
             location.state.players.map((p) => <p key={p}>{p}</p>)}
         </div>
         <div className="controls">
-          <img src={arrowLeft} alt="left" onClick={handleLeftArrowClick} />
-          <img
+          <motion.img
+            whileTap={{ scale: 1.5, rotate: 10 }}
+            src={arrowLeft}
+            alt="left"
+            onClick={handleLeftArrowClick}
+          />
+          <motion.img
+            whileTap={{ scale: 1.5 }}
             src={trash}
             alt="delete"
             onClick={() => {
               setShowModal(true);
             }}
           />
-          <img src={arrowLeft} alt="right" onClick={saveGame} />
+          <motion.img
+            whileTap={{ scale: 1.5, rotate: 170 }}
+            style={{ rotate: 180 }}
+            src={arrowLeft}
+            alt="right"
+            onClick={saveGame}
+          />
         </div>
       </div>
       {showModal && (
@@ -120,6 +172,6 @@ export default function SaveGame() {
           </button>
         </InfoModal>
       )}
-    </div>
+    </motion.div>
   );
 }

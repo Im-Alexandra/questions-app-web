@@ -31,7 +31,12 @@ export default function InfoModal({ children, handleClose }) {
         exit="exit"
         className="infoModal"
       >
-        <img src={close} alt="close icon" onClick={handleClose} />
+        <motion.img
+          whileTap={{ scale: 1.5 }}
+          src={close}
+          alt="close icon"
+          onClick={handleClose}
+        />
         {children}
       </motion.div>
     </motion.div>

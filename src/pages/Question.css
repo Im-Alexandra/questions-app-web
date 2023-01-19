@@ -21,6 +21,13 @@
 .question-page .question {
   line-height: 1.5em;
 }
+.question-page .success-message {
+  font-size: 0.6em;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translate(-50%);
+}
 .question-page .icon {
   position: absolute;
   width: 30px;
@@ -53,6 +60,9 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
+}
+.question-page .controls .mid p {
+  width: 42px;
 }
 
 .question-page .controls .mid img:last-child {

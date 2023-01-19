@@ -24,23 +24,64 @@ import svg11 from "../assets/background/11.svg";
 import svg12 from "../assets/background/12.svg";
 import svg13 from "../assets/background/13.svg";
 
+const successMessageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+  },
+  visible: {
+    y: 0,
+    opacity: [0, 1, 0],
+    transition: {
+      type: "tween",
+      delay: 0.3,
+      duration: 1.8,
+      ease: "easeOut",
+    },
+  },
+};
+
+const pageVariants = {
+  hidden: { opacity: 0, x: "-100vw", rotate: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    rotate: 0,
+    transition: { type: "spring", duration: 0.7 },
+  },
+  exit: {
+    opacity: 0,
+    x: "-100vw",
+    rotate: -50,
+    transition: { type: "spring", duration: 0.7 },
+  },
+};
+
 export default function Question() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { addDocToSubcollection, response } = useFirestore("users");
-  //using this to know which subcollection was just updated
-  const [subcol, setSubCol] = useState("");
+  //using this to know which subCollection was just updated
+  const [subCol, setSubCol] = useState({
+    message: "",
+    favourites: false,
+    saved: false,
+  });
   //weird state alert
   const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(location.state.currentIndex);
+
+  useEffect(() => {
+    console.log(location.state);
+  }, [location.state]);
 
   //fires when success from response changes
   useEffect(() => {
     if (response.success) {
       //TODO: add animation to show success
-      console.log("added to ", subcol);
+      console.log(subCol);
     }
-  }, [response.success, subcol]);
+  }, [response.success, subCol]);
 
   const saveToFavourites = () => {
     let questionId = location.state.questions[currentIndex].id;
@@ -49,7 +90,7 @@ export default function Question() {
       tags: location.state.questions[location.state.currentIndex].tags,
     };
     addDocToSubcollection(user.uid, "favourites", questionId, questionContent);
-    setSubCol("favourites");
+    setSubCol({ ...subCol, message: "Saved to favourites", favourites: true });
   };
 
   const handleArrowClick = (e) => {
@@ -57,6 +98,7 @@ export default function Question() {
       //console.log("This is the first question, go back to new game page");
       navigate("/new-game");
     } else if (e.target.alt === "left" && currentIndex !== 0) {
+      setSubCol({ message: "", saved: false, favourites: false });
       setCurrentIndex(currentIndex - 1);
     } else if (
       e.target.alt === "right" &&
@@ -73,6 +115,7 @@ export default function Question() {
       e.target.alt === "right" &&
       currentIndex + 1 !== location.state.questions.length
     ) {
+      setSubCol({ message: "", saved: false, favourites: false });
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -85,13 +128,21 @@ export default function Question() {
       players: location.state.players,
     };
     addDocToSubcollection(user.uid, "saved", questionId, questionContent);
-    setSubCol("saved");
+    setSubCol({ ...subCol, message: "Saved for later", saved: true });
   };
 
   return (
-    <div className="question-container">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="question-container"
+      style={{ originX: 1, originY: 1 }}
+    >
       <div className="question-page">
-        <img
+        <motion.img
+          whileTap={{ scale: 1.5 }}
           className="icon"
           src={close}
           alt="close icon"
@@ -113,19 +164,35 @@ export default function Question() {
               </motion.p>
             </AnimatePresence>
             {response.error && <p className="error">{response.error}</p>}
+
+            {/* -------------------------- CONTROLS BELOW -------------------------- */}
             <div className="controls">
+              <AnimatePresence>
+                <motion.p
+                  key={subCol.message}
+                  variants={successMessageVariants}
+                  initial="hidden"
+                  animate="visible"
+                  style={{ x: "-50%" }}
+                  className="success-message"
+                >
+                  {subCol.message}
+                </motion.p>
+              </AnimatePresence>
               <div className="top">
-                <img
+                <motion.img
+                  whileTap={{ scale: 1.9, rotate: 10 }}
                   className="controls-icon"
                   src={heart}
                   alt=""
                   onClick={saveToFavourites}
+                  style={subCol.favourites ? { opacity: 0.5 } : {}}
                 />
               </div>
 
               <div className="mid">
                 <motion.img
-                  whileTap={{ scale: 0.5, rotate: 0 }}
+                  whileTap={{ scale: 1.7, rotate: 10 }}
                   className="controls-icon"
                   src={leftArrow}
                   alt="left"
@@ -137,7 +204,7 @@ export default function Question() {
                   </p>
                 )}
                 <motion.img
-                  whileTap={{ scale: 0.5 }}
+                  whileTap={{ scale: 1.7, rotate: 170 }}
                   style={{ rotate: 180 }}
                   className="controls-icon"
                   src={leftArrow}
@@ -147,11 +214,13 @@ export default function Question() {
               </div>
 
               <div className="bot">
-                <img
+                <motion.img
+                  whileTap={{ scale: 1.9, rotate: -10 }}
                   className="controls-icon"
                   src={time}
                   alt=""
                   onClick={saveToSaved}
+                  style={subCol.saved ? { opacity: 0.5 } : {}}
                 />
               </div>
             </div>
@@ -185,6 +254,6 @@ export default function Question() {
           <img src={svg13} alt="floating background" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

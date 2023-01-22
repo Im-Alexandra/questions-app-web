@@ -1,0 +1,42 @@
+.horizontal-component .content {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  list-style: none;
+  padding: 5px 0px;
+}
+.horizontal-card {
+  /* border: 1px solid var(--dark-blue); */
+  color: var(--black);
+  flex: 0 0 80%;
+  width: 150px;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  /* font-family: "Quicksand_Bold"; */
+  background-color: #dededebd;
+  max-width: 300px;
+}
+@media screen and (max-width: 700px) {
+  /* only mobile */
+  .horizontal-component .content::-webkit-scrollbar {
+    display: none;
+  }
+}
+.horizontal-component .content::-webkit-scrollbar {
+  height: 10px;
+}
+.horizontal-component .content::-webkit-scrollbar-thumb,
+.horizontal-component .content::-webkit-scrollbar-track {
+  border-radius: 92px;
+}
+.horizontal-component .content::-webkit-scrollbar-thumb {
+  background: var(--orange);
+}
+.horizontal-component .content::-webkit-scrollbar-track {
+  background: #dededebd;
+}

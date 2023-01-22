@@ -107,3 +107,6 @@
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
+.save-game-page .error {
+  font-size: 0.5em;
+}

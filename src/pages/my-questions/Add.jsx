@@ -46,8 +46,10 @@ export default function Add() {
     };
     if (newQuestion !== "") {
       addDocToSubcollectionNewId(user.uid, "added", questionToAdd);
+      const currentText = document.getElementById("currentCount");
+      currentText.innerHTML = "0";
     } else {
-      setError("Please type in the question");
+      setError("Question has to be filled");
     }
   };
 
@@ -59,6 +61,16 @@ export default function Add() {
       setNewQuestion("");
     }
   }, [response.success]);
+
+  useEffect(() => {
+    if (error !== null) {
+      document.getElementById("question").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    }
+  }, [error]);
 
   return (
     <motion.div
@@ -78,11 +90,13 @@ export default function Add() {
             setNewQuestion(e.target.value);
           }}
           value={newQuestion}
+          id="question"
         ></textarea>
         <div className="count">
           <span id="currentCount">0</span>
           <span>/ 150</span>
         </div>
+        {error && <p className="error text-center">{error}</p>}
       </div>
 
       <CategoryPicker
@@ -97,7 +111,6 @@ export default function Add() {
           Add question
         </button>
       </div>
-      {error && <p className="error text-center">{error}</p>}
     </motion.div>
   );
 }

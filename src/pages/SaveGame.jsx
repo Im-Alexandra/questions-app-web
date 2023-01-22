@@ -33,6 +33,7 @@ export default function SaveGame() {
   const [showModal, setShowModal] = useState(false);
   const [note, setNote] = useState("");
   const { addDocToSubcollectionNewId, response } = useFirestore("users");
+  const [error, setError] = useState(null);
 
   const handleKeyUp = (e) => {
     const current = e.target.value.length;
@@ -74,7 +75,13 @@ export default function SaveGame() {
     };
     console.log(game);
     console.log(user.uid);
-    addDocToSubcollectionNewId(user.uid, "games", game);
+
+    if (note !== "") {
+      setError(null);
+      addDocToSubcollectionNewId(user.uid, "games", game);
+    } else {
+      setError("Note is required before saving");
+    }
   };
 
   //fires when success from response changes
@@ -126,6 +133,7 @@ export default function SaveGame() {
           <span id="current">0</span>
           <span id="maximum">/ 120</span>
         </div>
+        {error && <p className="error">{error}</p>}
         <div className="players">
           {location.state.players &&
             location.state.players.map((p) => <p key={p}>{p}</p>)}

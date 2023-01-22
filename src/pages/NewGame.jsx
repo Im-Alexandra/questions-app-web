@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
 import CategoryPicker from "../components/CategoryPicker";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const pageVariants = {
   hidden: {
@@ -35,6 +36,7 @@ export default function NewGame() {
   const [newPlayer, setNewPlayer] = useState("");
   const [players, setPlayers] = useState([]);
   const newPlayerInput = useRef(null);
+  const { user } = useAuthContext();
 
   //category picker state
   const [option1, setOption1] = useState("");
@@ -42,7 +44,8 @@ export default function NewGame() {
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
 
-  const { documents } = useCollection("questions");
+  const { documents: questions } = useCollection("questions");
+  const { documents: added } = useCollection(`users/${user.uid}/added`);
 
   const handleAdd = (e) => {
     const newInput = newPlayer.trim();
@@ -58,33 +61,63 @@ export default function NewGame() {
     setPlayers((prevPlayers) => [...filteredPlayers]);
   };
 
+  /* --------------------- QUERY --------------------- */
   const playGame = () => {
     //console.log("players: ", players);
     const catArray = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
-    console.log("categories: ", catArray);
 
-    //get back all the eligible questions and reshuffle them
-    const filteredDocs = documents.filter((doc) => {
-      if (doc.tags.every((ai) => catArray.includes(ai))) {
+    //join two question dbs together
+    const allQuestions = questions.concat(added);
+    /* console.log(allQuestions); */
+
+    //filter based on option 4
+    const filteredByLastOption = allQuestions.filter((q) => {
+      if (q.tags.includes(option4)) {
         return true;
-      } else {
+      }
+      return false;
+    });
+    /* console.log("filteredByLastOption: ", filteredByLastOption); */
+
+    //filter based on option 1,2,3
+    const fullyFiltered = filteredByLastOption.filter((q) => {
+      if (option1 !== "") {
+        if (q.tags.includes(option1)) {
+          return true;
+        }
+        return false;
+      } else if (option2 !== "") {
+        if (q.tags.includes(option2)) {
+          return true;
+        }
+        return false;
+      } else if (option3 !== "") {
+        if (q.tags.includes(option3)) {
+          return true;
+        }
         return false;
       }
+      return true;
     });
-    console.log(filteredDocs);
-    const reshuffledQuestions = filteredDocs
+    /* console.log("fully filteres: ", fullyFiltered); */
+
+    //shuffle
+    const shuffledQuestions = fullyFiltered
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
-    //pick first 5
-    const questions = reshuffledQuestions.slice(0, 5);
-    console.log(questions);
+    /* console.log("shuffled: ", shuffledQuestions); */
 
+    //limit
+    const finalQuestions = shuffledQuestions.slice(0, 5);
+    /* console.log(finalQuestions); */
+
+    //go to next page and save state
     navigate("/new-game/play", {
       state: {
-        questions,
+        questions: finalQuestions,
         players,
         currentIndex: 0,
         categories: catArray,

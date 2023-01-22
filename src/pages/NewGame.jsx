@@ -37,6 +37,8 @@ export default function NewGame() {
   const [players, setPlayers] = useState([]);
   const newPlayerInput = useRef(null);
   const { user } = useAuthContext();
+  const [error, setError] = useState(null);
+  const [dataError, setDataError] = useState(null);
 
   //category picker state
   const [option1, setOption1] = useState("");
@@ -53,6 +55,7 @@ export default function NewGame() {
       setPlayers((prevPlayers) => [...prevPlayers, newInput]);
     }
     setNewPlayer("");
+    setError(null);
     newPlayerInput.current.focus();
   };
 
@@ -63,6 +66,21 @@ export default function NewGame() {
 
   /* --------------------- QUERY --------------------- */
   const playGame = () => {
+    if (players.length === 0) {
+      setError("Add at least 1 player");
+      document.getElementById("playerInput").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+      return;
+    }
+    if (questions === null) {
+      setDataError("Couldn´t fetch data");
+      return;
+    }
+    setError(null);
+    setDataError(null);
     //console.log("players: ", players);
     const catArray = [option1, option2, option3, option4].filter(
       (str) => str !== ""
@@ -162,6 +180,7 @@ export default function NewGame() {
             type="text"
             onChange={(e) => setNewPlayer(e.target.value)}
             value={newPlayer}
+            id="playerInput"
           ></input>
           <button
             className="btn"
@@ -173,6 +192,7 @@ export default function NewGame() {
             ADD
           </button>
         </div>
+        {error && <p className="error">{error}</p>}
       </label>
       <AnimatePresence>
         {players.length === 4 && (
@@ -227,6 +247,7 @@ export default function NewGame() {
       <button className="btn mt-38 full-width" onClick={playGame}>
         Start new game
       </button>
+      {dataError && <p className="error">{dataError}</p>}
     </motion.div>
   );
 }

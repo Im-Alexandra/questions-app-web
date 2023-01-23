@@ -11,10 +11,10 @@ import Profile from "./pages/profile/Profile";
 import MyGames from "./pages/profile/MyGames";
 import AddedQuestions from "./pages/profile/AddedQuestions";
 import BotNavbar from "./components/BotNavbar";
-import NewGame from "./pages/NewGame";
+import NewGame from "./pages/play/NewGame";
 import MyQuestions from "./pages/my-questions/MyQuestions.jsx";
-import Question from "./pages/Question";
-import SaveGame from "./pages/SaveGame";
+import Question from "./pages/play/Question";
+import SaveGame from "./pages/play/SaveGame";
 import { AnimatePresence } from "framer-motion";
 
 function App() {

@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import "./NewGame.css";
 import { useNavigate } from "react-router-dom";
-import { useCollection } from "../hooks/useCollection";
+import { useCollection } from "../../hooks/useCollection";
 import { AnimatePresence, motion } from "framer-motion";
 import ReactSlider from "react-slider";
 
-import arrow from "../assets/leftArrowOrange.svg";
-import deleteIcon from "../assets/closeBlack.svg";
-import CategoryPicker from "../components/CategoryPicker";
-import { useAuthContext } from "../hooks/useAuthContext";
+import arrow from "../../assets/leftArrowOrange.svg";
+import deleteIcon from "../../assets/closeBlack.svg";
+import CategoryPicker from "../../components/CategoryPicker";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const pageVariants = {
   hidden: {

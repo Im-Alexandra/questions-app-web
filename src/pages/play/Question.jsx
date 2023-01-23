@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Question.css";
-import close from "../assets/closeWhite.svg";
-import heart from "../assets/heartWhite.svg";
-import leftArrow from "../assets/leftArrowWhite.svg";
-import time from "../assets/timeWhite.svg";
-import { useFirestore } from "../hooks/useFirestore";
-import { useAuthContext } from "../hooks/useAuthContext";
+import close from "../../assets/closeWhite.svg";
+import heart from "../../assets/heartWhite.svg";
+import leftArrow from "../../assets/leftArrowWhite.svg";
+import time from "../../assets/timeWhite.svg";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import { AnimatePresence, motion } from "framer-motion";
 
-import svg0 from "../assets/background/0.svg";
-import svg1 from "../assets/background/1.svg";
-import svg2 from "../assets/background/2.svg";
-import svg3 from "../assets/background/3.svg";
-import svg4 from "../assets/background/4.svg";
-import svg5 from "../assets/background/5.svg";
-import svg6 from "../assets/background/6.svg";
-import svg7 from "../assets/background/7.svg";
-import svg8 from "../assets/background/8.svg";
-import svg9 from "../assets/background/9.svg";
-import svg10 from "../assets/background/10.svg";
-import svg11 from "../assets/background/11.svg";
-import svg12 from "../assets/background/12.svg";
-import svg13 from "../assets/background/13.svg";
+import svg0 from "../../assets/background/0.svg";
+import svg1 from "../../assets/background/1.svg";
+import svg2 from "../../assets/background/2.svg";
+import svg3 from "../../assets/background/3.svg";
+import svg4 from "../../assets/background/4.svg";
+import svg5 from "../../assets/background/5.svg";
+import svg6 from "../../assets/background/6.svg";
+import svg7 from "../../assets/background/7.svg";
+import svg8 from "../../assets/background/8.svg";
+import svg9 from "../../assets/background/9.svg";
+import svg10 from "../../assets/background/10.svg";
+import svg11 from "../../assets/background/11.svg";
+import svg12 from "../../assets/background/12.svg";
+import svg13 from "../../assets/background/13.svg";
 
 const successMessageVariants = {
   hidden: {

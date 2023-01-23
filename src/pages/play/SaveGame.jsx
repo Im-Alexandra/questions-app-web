@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SaveGame.css";
-import { useFirestore } from "../hooks/useFirestore";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import { AnimatePresence, motion } from "framer-motion";
 
-import close from "../assets/closeWhite.svg";
-import arrowLeft from "../assets/leftArrowWhite.svg";
-import trash from "../assets/trash.svg";
-import InfoModal from "../components/InfoModal";
+import close from "../../assets/closeWhite.svg";
+import arrowLeft from "../../assets/leftArrowWhite.svg";
+import trash from "../../assets/trash.svg";
+import InfoModal from "../../components/InfoModal";
 
 const pageVariants = {
   hidden: { opacity: 0, x: "100vw", rotate: 50 },

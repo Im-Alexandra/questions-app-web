@@ -51,9 +51,9 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    x: "-100vw",
+    /* x: "-100vw",
     rotate: -50,
-    transition: { type: "spring", duration: 0.7 },
+    transition: { type: "spring", duration: 0.7 }, */
   },
 };
 

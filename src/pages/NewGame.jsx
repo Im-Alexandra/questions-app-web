@@ -3,6 +3,7 @@ import "./NewGame.css";
 import { useNavigate } from "react-router-dom";
 import { useCollection } from "../hooks/useCollection";
 import { AnimatePresence, motion } from "framer-motion";
+import ReactSlider from "react-slider";
 
 import arrow from "../assets/leftArrowOrange.svg";
 import deleteIcon from "../assets/closeBlack.svg";
@@ -45,6 +46,7 @@ export default function NewGame() {
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
+  const [limit, setLimit] = useState(5);
 
   const { documents: questions } = useCollection("questions");
   const { documents: added } = useCollection(`users/${user.uid}/added`);
@@ -129,7 +131,7 @@ export default function NewGame() {
     /* console.log("shuffled: ", shuffledQuestions); */
 
     //limit
-    const finalQuestions = shuffledQuestions.slice(0, 5);
+    const finalQuestions = shuffledQuestions.slice(0, limit);
     /* console.log(finalQuestions); */
 
     //go to next page and save state
@@ -153,6 +155,7 @@ export default function NewGame() {
     } else if (e.target.name === "option4") {
       setOption4(e.target.value);
     }
+    console.log(e.target);
   };
 
   return (
@@ -173,7 +176,7 @@ export default function NewGame() {
         NEW GAME
       </h2>
       <label>
-        <span>I am playing with:</span>
+        <span className="players-title">I am playing with:</span>
         <div className="players">
           <input
             ref={newPlayerInput}
@@ -237,6 +240,7 @@ export default function NewGame() {
           ))}
         </AnimatePresence>
       </div>
+
       <CategoryPicker
         option1={option1}
         option2={option2}
@@ -244,6 +248,36 @@ export default function NewGame() {
         option4={option4}
         change={handleCategoryChange}
       />
+
+      <div className="slider">
+        <p className="mt-38">
+          Number of questions:{" "}
+          <span
+            style={{ color: "var(--orange)", fontFamily: "Quicksand_Bold" }}
+          >
+            {limit}
+          </span>
+        </p>
+        <ReactSlider
+          className="customSlider"
+          trackClassName="customSlider-track"
+          thumbClassName="customSlider-thumb"
+          markClassName="customSlider-mark"
+          marks={[6, 7, 8, 9, 10, 11, 12, 13, 14, 15]}
+          min={5}
+          max={15}
+          value={limit}
+          onChange={(value) => setLimit(value)}
+          renderMark={(props) => {
+            if (props.key < limit) {
+              props.className = "customSlider-mark customSlider-mark-before";
+            } else if (props.key === limit) {
+              props.className = "customSlider-mark customSlider-mark-active";
+            }
+            return <span {...props} />;
+          }}
+        />
+      </div>
       <button className="btn mt-38 full-width" onClick={playGame}>
         Start new game
       </button>

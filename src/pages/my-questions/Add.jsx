@@ -30,6 +30,7 @@ export default function Add() {
   };
 
   const handleKeyUp = (e) => {
+    setError(null);
     const current = e.target.value.length;
     const currentText = document.getElementById("currentCount");
     currentText.innerHTML = current;

@@ -1,4 +1,4 @@
-.new-game span {
+.new-game .players-title {
   display: block;
   margin-bottom: 6px;
 }
@@ -33,4 +33,50 @@
 }
 .new-game .mt-38 {
   margin-top: 38px;
+}
+/* SLIDER */
+.customSlider {
+  /* max width of your slider */
+  max-width: 300px;
+  /* Optional: Only If you want to center your slider in the page */
+  margin: auto;
+}
+.customSlider-track {
+  /* Top value to align your track to the center of your thumb */
+  top: 8px;
+  /* thickness of the track */
+  height: 4px;
+  /* default color of your track */
+  background: grey;
+}
+.customSlider-track.customSlider-track-0 {
+  /* color of the track before the thumb */
+  background: var(--orange);
+}
+.customSlider-thumb {
+  cursor: pointer;
+  /*color for the thumb */
+  background: var(--orange);
+  /* shape of the thumb: circle */
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  /* remove default outline when selected */
+  outline: none;
+}
+.customSlider-thumb:hover {
+  box-shadow: 0 0 0 8px #e26b5475;
+}
+.customSlider-mark {
+  cursor: pointer;
+  top: 6px;
+  width: 1px;
+  height: 8px;
+  background-color: grey;
+}
+.customSlider-mark.customSlider-mark-before {
+  background-color: var(--orange);
+}
+.customSlider-mark.customSlider-mark-active {
+  display: none;
 }

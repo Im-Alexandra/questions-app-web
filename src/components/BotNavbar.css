@@ -11,19 +11,17 @@
   justify-content: center;
   z-index: 100;
 }
-
 .bot-navbar .item {
   flex-grow: 1;
   height: 80px;
 }
-
 .bot-navbar .item.active {
   background-color: var(--dark-blue);
 }
-
 .bot-navbar .icon {
   max-width: 50px;
+  max-height: 80px;
   margin: auto;
   display: block;
-  padding: 10px 0;
+  padding: 15px 0;
 }

@@ -26,6 +26,12 @@
   right: 20px;
   cursor: pointer;
 }
+.save-game-page .textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 80px;
+}
 .save-game-page textarea {
   border: none;
   outline: none;
@@ -64,9 +70,7 @@
 .save-game-page #the-count {
   text-align: right;
   max-width: 300px;
-  margin: auto;
   font-size: 0.5em;
-  margin-bottom: 80px;
 }
 .save-game-page .players {
   display: flex;

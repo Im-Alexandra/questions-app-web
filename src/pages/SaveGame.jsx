@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./SaveGame.css";
 import { useFirestore } from "../hooks/useFirestore";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import close from "../assets/closeWhite.svg";
 import arrowLeft from "../assets/leftArrowWhite.svg";
@@ -20,10 +20,16 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    x: "-100vw",
+    /* x: "-100vw",
     rotate: -50,
-    transition: { type: "spring", duration: 0.7 },
+    transition: { type: "spring", duration: 0.7 }, */
   },
+};
+
+const errorVariants = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0 },
 };
 
 export default function SaveGame() {
@@ -36,6 +42,7 @@ export default function SaveGame() {
   const [error, setError] = useState(null);
 
   const handleKeyUp = (e) => {
+    setError(null);
     const current = e.target.value.length;
     const currentText = document.getElementById("current");
     currentText.innerHTML = current;
@@ -98,7 +105,6 @@ export default function SaveGame() {
       variants={pageVariants}
       initial="hidden"
       animate="visible"
-      exit="exit"
       className="save-game-container"
     >
       <div className="save-game-page">
@@ -120,20 +126,34 @@ export default function SaveGame() {
             minute: "2-digit",
           }) + ""}
         </p>
-        <textarea
-          placeholder="Write notes about this session..."
-          maxLength="120"
-          onKeyUp={handleKeyUp}
-          onChange={(e) => {
-            setNote(e.target.value);
-          }}
-          value={note}
-        ></textarea>
-        <div id="the-count">
-          <span id="current">0</span>
-          <span id="maximum">/ 120</span>
+        <div className="textarea-wrapper">
+          <textarea
+            placeholder="Write notes about this session..."
+            maxLength="120"
+            onKeyUp={handleKeyUp}
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
+            value={note}
+          ></textarea>
+          <div id="the-count">
+            <span id="current">0</span>
+            <span id="maximum">/ 120</span>
+          </div>
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                variants={errorVariants}
+                animate="visible"
+                initial="hidden"
+                exit="exit"
+                className="error"
+              >
+                <p>{error}</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        {error && <p className="error">{error}</p>}
         <div className="players">
           {location.state.players &&
             location.state.players.map((p) => <p key={p}>{p}</p>)}

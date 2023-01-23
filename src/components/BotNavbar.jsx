@@ -3,7 +3,7 @@ import "./BotNavbar.css";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import profileIcon from "../assets/profile.svg";
-import gameRecordsIcon from "../assets/gameRecords.svg";
+import home from "../assets/home.svg";
 import questionsIcon from "../assets/questions.svg";
 import playIcon from "../assets/play.svg";
 
@@ -13,7 +13,7 @@ export default function BotNavbar() {
     <div className="bot-navbar">
       <div className={location.pathname === "/" ? "active item" : "item"}>
         <NavLink to="/">
-          <img src={gameRecordsIcon} alt="" className="icon" />
+          <img src={home} alt="" className="icon" />
         </NavLink>
       </div>
       <div

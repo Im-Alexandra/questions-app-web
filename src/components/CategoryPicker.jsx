@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CategoryPicker.css";
 import infoIcon from "../assets/infoIcon.svg";
 import InfoModal from "../components/InfoModal";
+
 import { AnimatePresence } from "framer-motion";
 
 export default function CategoryPicker(props) {

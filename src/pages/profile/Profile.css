@@ -9,10 +9,27 @@
   position: relative;
 }
 .profile .pic {
+  position: relative;
+  display: inline-block;
+}
+.profile .pic img {
   width: 150px;
   height: 150px;
   background-size: cover;
   border-radius: 50%;
+  cursor: pointer;
+}
+.profile .pic input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+.profile .pic input:disabled {
+  cursor: default;
 }
 .profile .count-section {
   position: absolute;
@@ -43,6 +60,10 @@
   font-family: "Quicksand_Bold";
   line-height: 1.3;
 }
+.profile .content {
+  display: flex;
+  flex-direction: row;
+}
 .profile form .icon {
   width: 20px;
   height: 20px;
@@ -51,19 +72,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  flex: 1;
 }
-.profile .form-header {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-.profile .form-header img {
-  width: 20px;
+.profile form h3 {
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 .profile form label {
   display: flex;
   gap: 10px;
   align-items: center;
+  margin: auto;
+}
+.profile form input:disabled {
+  border: none;
 }
 .profile form input {
   padding: 8px 6px;
@@ -76,10 +100,26 @@
 .profile form input:focus {
   border: 1px solid var(--blue);
 }
+.profile form button {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
 .profile .bottom {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: flex-start;
+  flex: 1;
+  height: 0%;
+}
+.profile .bottom h3 {
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.profile .bottom button {
+  margin: auto;
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 700px) {
   .profile .content {

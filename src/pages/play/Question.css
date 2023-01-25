@@ -15,11 +15,12 @@
   color: white;
   font-size: 1.5em;
   text-align: center;
-  padding: 120px 60px;
+  padding: 120px;
   font-family: "Quicksand_Bold";
 }
 .question-page .question {
   line-height: 1.5em;
+  margin-top: 30%;
 }
 .question-page .success-message {
   font-size: 0.6em;
@@ -140,4 +141,12 @@
   top: 45%;
   left: 15%;
   rotate: 90deg;
+}
+@media screen and (max-width: 700px) {
+  .question-page .question {
+    margin-top: 1em;
+  }
+  .question-page {
+    padding: 120px 60px;
+  }
 }

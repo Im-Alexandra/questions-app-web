@@ -29,7 +29,7 @@ export default function Home() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="container"
+      className="container home"
     >
       <ScrollingCards title="Fun questions:" category="fun" questionCount="5" />
       <ScrollingCards
@@ -37,14 +37,23 @@ export default function Home() {
         category="connection"
         questionCount="5"
       />
-      <h3>Ready to ask?</h3>
-      <button className="btn" onClick={() => navigate("/new-game")}>
-        PLAY
-      </button>
-      <h3>Previous games</h3>
-      <button className="btn" onClick={() => navigate("/profile/game-records")}>
-        See game records
-      </button>
+      <div className="cta-wrapper">
+        <div className="cta">
+          <h3>Ready to ask?</h3>
+          <button className="btn" onClick={() => navigate("/new-game")}>
+            PLAY
+          </button>
+        </div>
+        <div className="cta">
+          <h3>Previous games</h3>
+          <button
+            className="btn"
+            onClick={() => navigate("/profile/game-records")}
+          >
+            See game records
+          </button>
+        </div>
+      </div>
     </motion.div>
   );
 }

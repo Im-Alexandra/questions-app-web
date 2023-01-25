@@ -1,3 +1,12 @@
+.new-game {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.new-game .players-wrapper {
+  max-width: 350px;
+  margin: auto;
+}
 .new-game .players-title {
   display: block;
   margin-bottom: 6px;
@@ -35,11 +44,16 @@
   margin-top: 38px;
 }
 /* SLIDER */
+.new-game .slider {
+  max-width: 350px;
+  margin: auto;
+}
 .customSlider {
   /* max width of your slider */
   max-width: 300px;
   /* Optional: Only If you want to center your slider in the page */
   margin: auto;
+  margin-bottom: 38px;
 }
 .customSlider-track {
   /* Top value to align your track to the center of your thumb */

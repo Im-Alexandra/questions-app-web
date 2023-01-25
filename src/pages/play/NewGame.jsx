@@ -175,70 +175,74 @@ export default function NewGame() {
         />
         NEW GAME
       </h2>
-      <label>
-        <span className="players-title">I am playing with:</span>
-        <div className="players">
-          <input
-            ref={newPlayerInput}
-            type="text"
-            onChange={(e) => setNewPlayer(e.target.value)}
-            value={newPlayer}
-            id="playerInput"
-          ></input>
-          <button
-            className="btn"
-            onClick={handleAdd}
-            disabled={
-              players.length === 4 || players.includes(newPlayer) ? true : false
-            }
-          >
-            ADD
-          </button>
-        </div>
-        {error && <p className="error">{error}</p>}
-      </label>
-      <AnimatePresence>
-        {players.length === 4 && (
-          <motion.p
-            variants={playerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="error"
-          >
-            Maximum players reached
-          </motion.p>
-        )}
-      </AnimatePresence>
-      <div className="current-players">
+      <div className="players-wrapper">
+        <label>
+          <span className="players-title">I am playing with:</span>
+          <div className="players">
+            <input
+              ref={newPlayerInput}
+              type="text"
+              onChange={(e) => setNewPlayer(e.target.value)}
+              value={newPlayer}
+              id="playerInput"
+            ></input>
+            <button
+              className="btn"
+              onClick={handleAdd}
+              disabled={
+                players.length === 4 || players.includes(newPlayer)
+                  ? true
+                  : false
+              }
+            >
+              ADD
+            </button>
+          </div>
+          {error && <p className="error">{error}</p>}
+        </label>
         <AnimatePresence>
-          {players.length !== 0 && (
+          {players.length === 4 && (
             <motion.p
               variants={playerVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
+              className="error"
             >
-              Current players:
+              Maximum players reached
             </motion.p>
           )}
-          {players.map((p, i) => (
-            <motion.p
-              variants={playerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              key={p}
-            >
-              {i + 1}. {p}
-              <img
-                src={deleteIcon}
-                alt="remove player"
-                onClick={() => handlePlayerDelete(p)}
-              />
-            </motion.p>
-          ))}
         </AnimatePresence>
+        <div className="current-players">
+          <AnimatePresence>
+            {players.length !== 0 && (
+              <motion.p
+                variants={playerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                Current players:
+              </motion.p>
+            )}
+            {players.map((p, i) => (
+              <motion.p
+                variants={playerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                key={p}
+              >
+                {i + 1}. {p}
+                <img
+                  src={deleteIcon}
+                  alt="remove player"
+                  onClick={() => handlePlayerDelete(p)}
+                />
+              </motion.p>
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
 
       <CategoryPicker
@@ -278,7 +282,7 @@ export default function NewGame() {
           }}
         />
       </div>
-      <button className="btn mt-38 full-width" onClick={playGame}>
+      <button className="btn mt-38" onClick={playGame}>
         Start new game
       </button>
       {dataError && <p className="error">{dataError}</p>}

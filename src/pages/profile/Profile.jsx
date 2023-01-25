@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
@@ -9,6 +9,7 @@ import emailIcon from "../../assets/email.svg";
 import passwordIcon from "../../assets/password.svg";
 import nameIcon from "../../assets/profileGreen.svg";
 import { useCollection } from "../../hooks/useCollection";
+import { useFirestore } from "../../hooks/useFirestore";
 
 const pageVariants = {
   hidden: {
@@ -32,6 +33,8 @@ export default function Profile() {
   const { user } = useAuthContext();
   const { documents: games } = useCollection(`users/${user.uid}/games`);
   const navigate = useNavigate();
+  const { uploadProfilePhoto, response } = useFirestore();
+
   const [email, setEmail] = useState(user?.email);
   const [displayName, setDisplayName] = useState(user?.displayName);
   const [password, setPassword] = useState(user?.password);
@@ -59,18 +62,30 @@ export default function Profile() {
       return;
     }
     let url = URL.createObjectURL(selected);
-
     setPhotoError(null);
     setNewPhoto(selected);
     setPhoto(url);
-    console.log(photo);
-    console.log(selected);
   };
 
   const handleEdit = (e) => {
     e.preventDefault();
     canEdit ? setCanEdit(false) : setCanEdit(true);
+
+    if (canEdit) {
+      //console.log("saving");
+      if (newPhoto) {
+        uploadProfilePhoto(newPhoto, user);
+      }
+    } else {
+      //console.log("editing");
+    }
   };
+
+  useEffect(() => {
+    if (response.success) {
+      console.log(response);
+    }
+  }, [response, response.success]);
 
   return (
     <motion.div

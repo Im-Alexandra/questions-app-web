@@ -1,6 +1,8 @@
 import { useReducer } from "react";
-import { db } from "../firebase/config";
+import { db, storage } from "../firebase/config";
 import { doc, setDoc, collection, deleteDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 
 let initialState = {
   document: null,
@@ -126,11 +128,40 @@ export const useFirestore = (col) => {
     }
   };
 
+  //upload profile picture and update the user with its url
+  const uploadProfilePhoto = async (file, user) => {
+    dispatch({ type: "IS_PENDING" });
+    const uploadPath = `images/${user.uid}/${file.name}`;
+    const fileRef = ref(storage, uploadPath);
+    let downloadURL;
+    try {
+      await uploadBytes(fileRef, file);
+      await getDownloadURL(fileRef).then((url) => {
+        downloadURL = url;
+      });
+      //update user profile with the uploaded picture
+      updateProfile(user, { photoURL: downloadURL }).catch((error) =>
+        console.log(error)
+      );
+
+      dispatch({
+        type: "ADDED_DOCUMENT",
+        payload: downloadURL,
+      });
+    } catch (err) {
+      dispatch({
+        type: "ERROR",
+        payload: err.message,
+      });
+    }
+  };
+
   return {
     addDocument,
     addDocToSubcollection,
     addDocToSubcollectionNewId,
     deleteDocument,
+    uploadProfilePhoto,
     response,
   };
 };

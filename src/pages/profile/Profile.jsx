@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import arrow from "../../assets/leftArrowOrange.svg";
 import emailIcon from "../../assets/email.svg";
@@ -10,6 +10,7 @@ import passwordIcon from "../../assets/password.svg";
 import nameIcon from "../../assets/profileGreen.svg";
 import { useCollection } from "../../hooks/useCollection";
 import { useFirestore } from "../../hooks/useFirestore";
+import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
 
 const pageVariants = {
   hidden: {
@@ -27,6 +28,18 @@ const pageVariants = {
   },
 };
 
+const overlayVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
 export default function Profile() {
   const anonymousPhoto =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
@@ -35,15 +48,27 @@ export default function Profile() {
   const navigate = useNavigate();
   const { uploadProfilePhoto, response } = useFirestore();
 
-  const [email, setEmail] = useState(user?.email);
-  const [displayName, setDisplayName] = useState(user?.displayName);
-  const [password, setPassword] = useState(user?.password);
-  const [photo, setPhoto] = useState(
-    user?.photoURL === null ? anonymousPhoto : user?.photoURL
-  );
+  const [visibleName, setVisibleName] = useState("");
+  const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [photo, setPhoto] = useState("");
   const [newPhoto, setNewPhoto] = useState(null);
   const [photoError, setPhotoError] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
+
+  const [formErrors, setFormErrors] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+      setDisplayName(user.displayName);
+      setVisibleName(user.displayName);
+      setPassword(user.password);
+      setPhoto(user.photoURL === null ? anonymousPhoto : user.photoURL);
+    }
+  }, [user]);
 
   const handleFileChanged = (e) => {
     setNewPhoto(null);
@@ -67,23 +92,58 @@ export default function Profile() {
     setPhoto(url);
   };
 
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
+    setFormErrors([]);
     e.preventDefault();
-    canEdit ? setCanEdit(false) : setCanEdit(true);
 
     if (canEdit) {
       //console.log("saving");
       if (newPhoto) {
         uploadProfilePhoto(newPhoto, user);
       }
-    } else {
-      //console.log("editing");
+      if (displayName !== user.displayName) {
+        await updateProfile(user, { displayName: displayName.trim() })
+          .then(() => {
+            setVisibleName(user.displayName);
+          })
+          .catch((error) => {
+            setFormErrors([...formErrors, error]);
+            setDisplayName(user.displayName);
+          });
+      }
+      if (email !== user.email) {
+        await updateEmail(user, email.trim())
+          .then(() => {})
+          .catch((error) => {
+            setFormErrors([...formErrors, error]);
+            setEmail(user.email);
+          });
+      }
+      if (password !== user.password) {
+        if (repeatPassword !== "") {
+          if (password !== repeatPassword) {
+            let error = {
+              type: "password",
+              message: "The passwords must match",
+            };
+            setFormErrors([...formErrors, error]);
+            setPassword(user.password);
+          } else {
+            updatePassword(user, password).catch((error) => {
+              setFormErrors([...formErrors, error]);
+              setPassword(user.password);
+            });
+          }
+        }
+      }
     }
+
+    canEdit ? setCanEdit(false) : setCanEdit(true);
   };
 
   useEffect(() => {
     if (response.success) {
-      console.log(response);
+      //console.log(response);
     }
   }, [response, response.success]);
 
@@ -107,6 +167,20 @@ export default function Profile() {
       <div className="avatar">
         <div className="wrapper">
           <div className="pic">
+            <AnimatePresence>
+              {canEdit && (
+                <motion.div
+                  variants={overlayVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="overlay"
+                >
+                  <p>Click to change avatar</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <img src={photo} alt="avatar" />
             <input
               type="file"
@@ -129,77 +203,91 @@ export default function Profile() {
       {photoError && <p className="error text-center">{photoError}</p>}
 
       <div className="content">
-        <form>
-          <h3>{displayName}</h3>
+        <div className="top">
+          <h3 className="text-center">{visibleName}</h3>
 
-          <label>
-            <span>
-              <img className="icon" src={nameIcon} alt="email" />
-            </span>
-            <input
-              disabled={canEdit ? "" : "disabled"}
-              type="text"
-              value={displayName}
-              required
-              autoComplete="name"
-              placeholder="Display name"
-              onChange={(e) => {
-                setDisplayName(e.target.value);
-              }}
-            ></input>
-          </label>
-          <label>
-            <span>
-              <img className="icon" src={emailIcon} alt="email" />
-            </span>
-            <input
-              disabled={canEdit ? "" : "disabled"}
-              type="email"
-              value={email}
-              required
-              autoComplete="email"
-              placeholder="Email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            ></input>
-          </label>
-          <label>
-            <span>
-              <img className="icon" src={passwordIcon} alt="password" />
-            </span>
-            <input
-              disabled={canEdit ? "" : "disabled"}
-              type="password"
-              value={password}
-              required
-              autoComplete="password"
-              placeholder="Password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            ></input>
-          </label>
-
-          {canEdit && (
+          <form>
             <label>
               <span>
-                <img className="icon" src={passwordIcon} alt="password" />
+                <img className="icon" src={nameIcon} alt="email" />
               </span>
               <input
                 disabled={canEdit ? "" : "disabled"}
-                type="password"
+                type="text"
+                value={displayName}
                 required
-                autoComplete="password"
-                placeholder="Repeat password"
+                autoComplete="name"
+                placeholder="Display name"
+                onChange={(e) => {
+                  setDisplayName(e.target.value);
+                }}
               ></input>
             </label>
-          )}
+            <label>
+              <span>
+                <img className="icon" src={emailIcon} alt="email" />
+              </span>
+              <input
+                disabled={canEdit ? "" : "disabled"}
+                type="email"
+                value={email}
+                required
+                autoComplete="email"
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              ></input>
+            </label>
+
+            {canEdit && (
+              <>
+                <label>
+                  <span>
+                    <img className="icon" src={passwordIcon} alt="password" />
+                  </span>
+                  <input
+                    disabled={canEdit ? "" : "disabled"}
+                    type="password"
+                    value={password || ""}
+                    required
+                    autoComplete="password"
+                    placeholder="New password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  ></input>
+                </label>
+                <label>
+                  <span>
+                    <img className="icon" src={passwordIcon} alt="password" />
+                  </span>
+                  <input
+                    disabled={canEdit ? "" : "disabled"}
+                    type="password"
+                    required
+                    value={repeatPassword}
+                    onChange={(e) => {
+                      setRepeatPassword(e.target.value);
+                    }}
+                    autoComplete="password"
+                    placeholder="Repeat password"
+                  ></input>
+                </label>
+              </>
+            )}
+          </form>
+          {formErrors &&
+            formErrors.map((e) => (
+              <p key={e} className="error">
+                {e.message}
+              </p>
+            ))}
 
           <button className="btn" onClick={handleEdit}>
             {canEdit ? "Save changes" : "Edit profile"}
           </button>
-        </form>
+        </div>
 
         <div className="bottom">
           <h3>Other</h3>

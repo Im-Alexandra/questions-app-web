@@ -4,12 +4,14 @@ import CategoryPicker from "../../components/CategoryPicker";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { motion } from "framer-motion";
+import ReactiveButton from "../../components/ReactiveButton";
 
 export default function Add() {
   const [newQuestion, setNewQuestion] = useState("");
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
   const { addDocToSubcollectionNewId, response } = useFirestore("users");
+  const [btnState, setBtnState] = useState("idle");
 
   //category picker state
   const [option1, setOption1] = useState("");
@@ -37,6 +39,15 @@ export default function Add() {
   };
 
   const handleAddQuestion = () => {
+    if (error) {
+      document.getElementById("question").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+      return;
+    }
+    console.log("clicked");
     setError(null);
     const tags = [option1, option2, option3, option4].filter(
       (str) => str !== ""
@@ -57,9 +68,13 @@ export default function Add() {
   //fires when success from response changes
   useEffect(() => {
     if (response.success) {
-      //TODO: add animation to show success
       console.log("success");
       setNewQuestion("");
+      setBtnState("success");
+      let timer = setTimeout(() => setBtnState("idle"), 5000);
+      return () => {
+        clearTimeout(timer);
+      };
     }
   }, [response.success]);
 
@@ -107,10 +122,13 @@ export default function Add() {
         option4={option4}
         change={handleCategoryChange}
       />
-      <div className="btn-wrapper">
-        <button className="btn" onClick={handleAddQuestion}>
-          Add question
-        </button>
+
+      <div className="mt-40">
+        <ReactiveButton
+          initialText="Add question"
+          btnState={btnState}
+          onClickFunction={handleAddQuestion}
+        />
       </div>
     </motion.div>
   );

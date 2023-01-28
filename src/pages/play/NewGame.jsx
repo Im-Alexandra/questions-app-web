@@ -155,7 +155,6 @@ export default function NewGame() {
     } else if (e.target.name === "option4") {
       setOption4(e.target.value);
     }
-    console.log(e.target);
   };
 
   return (

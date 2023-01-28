@@ -12,6 +12,7 @@ export default function Add() {
   const { user } = useAuthContext();
   const { addDocToSubcollectionNewId, response } = useFirestore("users");
   const [btnState, setBtnState] = useState("idle");
+  const [dbError, setDbError] = useState(null);
 
   //category picker state
   const [option1, setOption1] = useState("");
@@ -47,8 +48,8 @@ export default function Add() {
       });
       return;
     }
-    console.log("clicked");
     setError(null);
+    setDbError(null);
     const tags = [option1, option2, option3, option4].filter(
       (str) => str !== ""
     );
@@ -65,19 +66,21 @@ export default function Add() {
     }
   };
 
-  //fires when success from response changes
+  /* error and success for adding the question to DB */
   useEffect(() => {
     if (response.success) {
-      console.log("success");
       setNewQuestion("");
       setBtnState("success");
-      let timer = setTimeout(() => setBtnState("idle"), 5000);
+      let timer = setTimeout(() => setBtnState("idle"), 2000);
       return () => {
         clearTimeout(timer);
       };
+    } else if (response.error) {
+      setDbError(response.error);
     }
-  }, [response.success]);
+  }, [response.success, response.error]);
 
+  /* error for the text area */
   useEffect(() => {
     if (error !== null) {
       document.getElementById("question").scrollIntoView({
@@ -128,7 +131,9 @@ export default function Add() {
           initialText="Add question"
           btnState={btnState}
           onClickFunction={handleAddQuestion}
+          successText="Added"
         />
+        {dbError && <p className="error text-center">{dbError}</p>}
       </div>
     </motion.div>
   );

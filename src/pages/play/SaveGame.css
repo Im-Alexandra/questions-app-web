@@ -9,7 +9,6 @@
 .save-game-page {
   max-width: 800px;
   background-color: var(--orange);
-
   margin: auto;
   position: relative;
   height: 100%;
@@ -104,13 +103,12 @@
   cursor: pointer;
   flex-grow: 1;
 }
-.save-game-page .controls img:last-child {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
 .save-game-page .error {
+  font-size: 0.5em;
+}
+.save-game-page .saved {
+  position: absolute;
+  bottom: 90px;
+  right: 30px;
   font-size: 0.5em;
 }

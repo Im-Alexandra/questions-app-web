@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import close from "../../assets/closeWhite.svg";
 import arrowLeft from "../../assets/leftArrowWhite.svg";
 import trash from "../../assets/trash.svg";
+import check from "../../assets/checkWhite.svg";
 import InfoModal from "../../components/InfoModal";
 
 const pageVariants = {
@@ -32,6 +33,23 @@ const errorVariants = {
   exit: { opacity: 0 },
 };
 
+const successMessageVariants = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+  },
+  visible: {
+    y: 0,
+    opacity: [0, 1, 0],
+    transition: {
+      type: "tween",
+      delay: 0.3,
+      duration: 1.8,
+      ease: "easeOut",
+    },
+  },
+};
+
 export default function SaveGame() {
   const { user } = useAuthContext();
   const location = useLocation();
@@ -40,6 +58,7 @@ export default function SaveGame() {
   const [note, setNote] = useState("");
   const { addDocToSubcollectionNewId, response } = useFirestore("users");
   const [error, setError] = useState(null);
+  const [saved, setSaved] = useState(false);
 
   const handleKeyUp = (e) => {
     setError(null);
@@ -49,6 +68,9 @@ export default function SaveGame() {
   };
 
   const handleLeftArrowClick = () => {
+    if (saved) {
+      return;
+    }
     /* const questions = location.state.questions;
     const players = location.state.players;
     const currentIndex = location.state.questions.length;
@@ -69,6 +91,9 @@ export default function SaveGame() {
   };
 
   const saveGame = () => {
+    if (saved) {
+      return;
+    }
     const date = new Date().toLocaleString([], {
       year: "numeric",
       month: "numeric",
@@ -80,8 +105,8 @@ export default function SaveGame() {
       date,
       note,
     };
-    console.log(game);
-    console.log(user.uid);
+    /* console.log(game);
+    console.log(user.uid); */
 
     if (note !== "") {
       setError(null);
@@ -94,12 +119,13 @@ export default function SaveGame() {
   //fires when success from response changes
   useEffect(() => {
     if (response.success) {
-      //TODO: add animation to show success
-      console.log("success");
-      navigate("/home");
+      setSaved(true);
     }
   }, [response.success, navigate]);
 
+  const onAnimationComplete = () => {
+    navigate("/home");
+  };
   return (
     <motion.div
       variants={pageVariants}
@@ -114,7 +140,9 @@ export default function SaveGame() {
           src={close}
           alt="close icon"
           onClick={() => {
-            setShowModal(true);
+            if (!saved) {
+              setShowModal(true);
+            }
           }}
         />
         <p className="date">
@@ -158,6 +186,19 @@ export default function SaveGame() {
           {location.state.players &&
             location.state.players.map((p) => <p key={p}>{p}</p>)}
         </div>
+        <AnimatePresence>
+          {saved && (
+            <motion.p
+              variants={successMessageVariants}
+              initial="hidden"
+              animate="visible"
+              className="saved"
+              onAnimationComplete={onAnimationComplete}
+            >
+              Game saved
+            </motion.p>
+          )}
+        </AnimatePresence>
         <div className="controls">
           <motion.img
             whileTap={{ scale: 1.5, rotate: 10 }}
@@ -170,18 +211,20 @@ export default function SaveGame() {
             src={trash}
             alt="delete"
             onClick={() => {
-              setShowModal(true);
+              if (!saved) {
+                setShowModal(true);
+              }
             }}
           />
           <motion.img
-            whileTap={{ scale: 1.5, rotate: 170 }}
-            style={{ rotate: 180 }}
-            src={arrowLeft}
+            whileTap={{ scale: 1.5, rotate: -10 }}
+            src={check}
             alt="right"
             onClick={saveGame}
           />
         </div>
       </div>
+
       {showModal && (
         <InfoModal
           handleClose={() => {

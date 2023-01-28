@@ -51,9 +51,6 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    /* x: "-100vw",
-    rotate: -50,
-    transition: { type: "spring", duration: 0.7 }, */
   },
 };
 
@@ -70,18 +67,6 @@ export default function Question() {
   //weird state alert
   const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(location.state.currentIndex);
-
-  useEffect(() => {
-    console.log(location.state);
-  }, [location.state]);
-
-  //fires when success from response changes
-  useEffect(() => {
-    if (response.success) {
-      //TODO: add animation to show success
-      console.log(subCol);
-    }
-  }, [response.success, subCol]);
 
   const saveToFavourites = () => {
     let questionId = location.state.questions[currentIndex].id;

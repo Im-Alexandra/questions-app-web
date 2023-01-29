@@ -81,10 +81,12 @@ input:focus {
 
 /* COMMON CLASSES */
 .app {
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
 }
 .app .container {
+  margin: auto;
+  max-width: 800px;
   padding: 0 40px;
   margin-top: 120px;
   margin-bottom: 120px;

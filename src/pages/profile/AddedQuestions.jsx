@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./AddedQuestions.css";
 import { useNavigate } from "react-router-dom";
 import { useCollection } from "../../hooks/useCollection";
@@ -35,6 +35,28 @@ export default function AddedQuestions() {
     `users/${user.uid}/added`
   );
   const { deleteDocument } = useFirestore(`users/${user.uid}/added`);
+  /* const [correctedDocs, setCorrectedDocs] = useState([]); */
+
+  useEffect(() => {
+    if (documents !== undefined) {
+      //TODO: fix this
+      /* const newTags = documents?.map((d) => d.tags.map((t) => translateTag(t)));
+      console.log(newTags);
+      setCorrectedDocs(documents);
+      correctedDocs?.forEach((d, i) => (d.tags = newTags[i]));
+    console.log("corrected docs: ", correctedDocs); */
+    }
+  }, [documents]);
+
+  /* const translateTag = (tag) => {
+    const capitalizedString = tag.replace(/(?:^|\s|[-"'([{])+\S/g, (c) =>
+      c.toUpperCase()
+    );
+    const stringWithSpaces = capitalizedString
+      .replace(/([A-Z])/g, " $1")
+      .trim();
+    return stringWithSpaces;
+  }; */
 
   return (
     <motion.div

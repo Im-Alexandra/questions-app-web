@@ -103,10 +103,10 @@
   flex-direction: row;
   width: 200px;
   padding: 0;
-  gap: 15px;
   margin-top: 0;
   font-size: 0.9em;
   margin-bottom: 0;
+  flex-wrap: wrap;
 }
 .added-questions .tags li {
   flex: 1;

@@ -11,6 +11,7 @@ import nameIcon from "../../assets/profileGreen.svg";
 import { useCollection } from "../../hooks/useCollection";
 import { useFirestore } from "../../hooks/useFirestore";
 import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import { useLogout } from "../../hooks/useLogout";
 
 const pageVariants = {
   hidden: {
@@ -47,6 +48,7 @@ export default function Profile() {
   const { documents: games } = useCollection(`users/${user.uid}/games`);
   const navigate = useNavigate();
   const { uploadProfilePhoto, response } = useFirestore();
+  const { logout, isPending } = useLogout();
 
   const [visibleName, setVisibleName] = useState("");
   const [email, setEmail] = useState("");
@@ -303,6 +305,16 @@ export default function Profile() {
           >
             Added questions
           </button>
+          {!isPending && (
+            <button className="btn logout" onClick={logout}>
+              Logout
+            </button>
+          )}
+          {isPending && (
+            <button className="btn logout" disabled>
+              Loading
+            </button>
+          )}
         </div>
       </div>
     </motion.div>

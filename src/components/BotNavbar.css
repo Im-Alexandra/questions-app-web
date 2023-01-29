@@ -25,3 +25,8 @@
   display: block;
   padding: 15px 0;
 }
+@media screen and (min-width: 700px) {
+  .bot-navbar {
+    display: none;
+  }
+}

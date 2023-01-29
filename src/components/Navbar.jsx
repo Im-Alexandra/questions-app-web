@@ -29,14 +29,28 @@ export default function Navbar() {
           </li>
         )}
         {user && (
-          <li className="align-right">
-            {!isPending && <span onClick={logout}>Logout</span>}
-            {isPending && (
-              <span disabled>
-                <Spinner color="var(--black-spinner)" />
-              </span>
-            )}
-          </li>
+          <>
+            <li className="align-right logout">
+              {!isPending && <span onClick={logout}>Logout</span>}
+              {isPending && (
+                <span disabled>
+                  <Spinner color="var(--black-spinner)" />
+                </span>
+              )}
+            </li>
+            <li className="align-right desktop-only">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="desktop-only">
+              <Link to="/new-game">Play</Link>
+            </li>
+            <li className="desktop-only">
+              <Link to="/my-questions">Questions</Link>
+            </li>
+            <li className="desktop-only">
+              <Link to="/profile">Profile</Link>
+            </li>
+          </>
         )}
       </ul>
     </div>

@@ -7,26 +7,13 @@ import logo from "../assets/logo.svg";
 import Spinner from "./Spinner";
 import { motion } from "framer-motion";
 
-const underlineVariants = {
-  hidden: {
-    width: 0,
-  },
-  visible: {
-    width: "80%",
-  },
-  transition: {
-    duration: 1,
-    delay: 0.1,
-  },
-};
-
 export default function Navbar() {
   const { user } = useAuthContext();
   const { logout, isPending } = useLogout();
   const location = useLocation();
 
   return (
-    <div className="navbar">
+    <div className="navbar" id="navbar">
       <ul>
         <li>
           <Link to="/">

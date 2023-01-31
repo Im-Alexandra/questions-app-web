@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import "./InfoModal.css";
 import close from "../assets/closeBlack.svg";
 import { motion } from "framer-motion";
@@ -16,7 +17,7 @@ const modalVariants = {
 };
 
 export default function InfoModal({ children, handleClose }) {
-  return (
+  return ReactDOM.createPortal(
     <motion.div
       variants={backdropVariants}
       initial="hidden"
@@ -39,6 +40,7 @@ export default function InfoModal({ children, handleClose }) {
         />
         {children}
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.querySelector("#modal")
   );
 }

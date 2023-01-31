@@ -10,7 +10,7 @@ import playIcon from "../assets/play.svg";
 export default function BotNavbar() {
   const location = useLocation();
   return (
-    <div className="bot-navbar">
+    <div className="bot-navbar" id="bot-navbar">
       <div className={location.pathname === "/" ? "active item" : "item"}>
         <NavLink to="/">
           <img src={home} alt="" className="icon" />

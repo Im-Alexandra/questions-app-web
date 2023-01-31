@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { AnimatePresence, motion } from "framer-motion";
 
-import arrow from "../../assets/leftArrowOrange.svg";
 import emailIcon from "../../assets/email.svg";
 import passwordIcon from "../../assets/password.svg";
 import nameIcon from "../../assets/profileGreen.svg";
@@ -157,15 +156,7 @@ export default function Profile() {
       exit="exit"
       className="container profile"
     >
-      <h2 className="text-center">
-        <img
-          src={arrow}
-          alt="arrow"
-          className="go-back"
-          onClick={() => navigate(-1)}
-        />
-        Profile
-      </h2>
+      <h2 className="text-center">Profile</h2>
       <div className="avatar">
         <div className="wrapper">
           <div className="pic">

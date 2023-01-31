@@ -5,7 +5,6 @@ import { useCollection } from "../../hooks/useCollection";
 import { AnimatePresence, motion } from "framer-motion";
 import ReactSlider from "react-slider";
 
-import arrow from "../../assets/leftArrowOrange.svg";
 import deleteIcon from "../../assets/closeBlack.svg";
 import CategoryPicker from "../../components/CategoryPicker";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -165,18 +164,12 @@ export default function NewGame() {
       exit="exit"
       className="container new-game"
     >
-      <h2 className="text-center">
-        <img
-          src={arrow}
-          alt="arrow"
-          className="go-back"
-          onClick={() => navigate(-1)}
-        />
-        NEW GAME
-      </h2>
+      <h2 className="text-center title">NEW GAME</h2>
       <div className="players-wrapper">
         <label>
-          <span className="players-title">I am playing with:</span>
+          <span className="players-title new-sub-section">
+            I am playing with:
+          </span>
           <div className="players">
             <input
               ref={newPlayerInput}
@@ -281,7 +274,7 @@ export default function NewGame() {
           }}
         />
       </div>
-      <button className="btn mt-38" onClick={playGame}>
+      <button className="btn new-section" onClick={playGame}>
         Start new game
       </button>
       {dataError && <p className="error">{dataError}</p>}

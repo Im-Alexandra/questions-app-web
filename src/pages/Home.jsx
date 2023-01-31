@@ -39,13 +39,13 @@ export default function Home() {
       />
       <div className="cta-wrapper">
         <div className="cta">
-          <h3>Ready to ask?</h3>
+          <h3 className="new-section">Ready to ask?</h3>
           <button className="btn" onClick={() => navigate("/new-game")}>
             PLAY
           </button>
         </div>
         <div className="cta">
-          <h3>Previous games</h3>
+          <h3 className="new-section">Previous games</h3>
           <button
             className="btn"
             onClick={() => navigate("/profile/game-records")}

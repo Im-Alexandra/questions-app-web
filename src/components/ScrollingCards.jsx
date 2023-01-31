@@ -11,7 +11,7 @@ export default function ScrollingCards({ category, questionCount, title }) {
 
   return (
     <div className="horizontal-component">
-      <h3>{title}</h3>
+      <h3 className="headline">{title}</h3>
       {error && <p className="error">{error}</p>}
       <ul className="content">
         {documents?.map((q) => (

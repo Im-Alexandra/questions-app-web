@@ -84,6 +84,10 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 0%;
+}
+.profile .content .top button {
+  margin-top: 20px;
 }
 .profile form .icon,
 .profile .initial .icon {
@@ -147,6 +151,9 @@
 @media screen and (max-width: 700px) {
   .profile .content {
     flex-direction: column;
+  }
+  .profile .content .bottom {
+    margin-top: 40px;
   }
   .profile .logout {
     display: none;

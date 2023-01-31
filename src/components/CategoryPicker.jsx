@@ -10,8 +10,8 @@ export default function CategoryPicker(props) {
 
   return (
     <div className="cat-picker">
-      <h3 className="text-center mt-38">Pick categories</h3>
-      <p>Romantic or sexual partner:</p>
+      <h3 className="text-center new-section">Pick categories</h3>
+      <p style={{ marginTop: "26px" }}>Romantic or sexual partner:</p>
       <div className="options-container">
         <label className={props.option1 === "romantic" ? "checked" : ""}>
           <span>YES</span>

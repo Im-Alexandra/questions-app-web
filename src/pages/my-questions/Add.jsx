@@ -126,7 +126,7 @@ export default function Add() {
         change={handleCategoryChange}
       />
 
-      <div className="mt-40">
+      <div className="new-section">
         <ReactiveButton
           initialText="Add question"
           btnState={btnState}

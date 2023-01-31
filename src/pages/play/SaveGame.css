@@ -70,6 +70,9 @@
   text-align: right;
   max-width: 300px;
   font-size: 0.5em;
+  margin: auto;
+  display: block;
+  width: 300px;
 }
 .save-game-page .players {
   display: flex;
@@ -105,10 +108,26 @@
 }
 .save-game-page .error {
   font-size: 0.5em;
+  width: 300px;
+  margin: auto;
 }
 .save-game-page .saved {
   position: absolute;
   bottom: 90px;
   right: 30px;
   font-size: 0.5em;
+}
+
+/* DESKTOP ONLY */
+@media screen and (min-width: 700px) {
+  .save-game-container {
+    top: 140px;
+    height: 70%;
+  }
+  .save-game-page {
+    border-radius: 10px;
+  }
+  .save-game-page .saved {
+    right: 95px;
+  }
 }

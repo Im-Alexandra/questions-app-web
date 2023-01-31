@@ -142,11 +142,27 @@
   left: 15%;
   rotate: 90deg;
 }
+.svg-wrapper img:nth-child(6),
+img:nth-child(7),
+img:nth-child(10),
+img:nth-child(11) {
+  display: none;
+}
 @media screen and (max-width: 700px) {
   .question-page .question {
     margin-top: 1em;
   }
   .question-page {
     padding: 120px 60px;
+  }
+}
+/* DESKTOP ONLY */
+@media screen and (min-width: 700px) {
+  .question-container {
+    top: 140px;
+    height: 70%;
+  }
+  .question-page {
+    border-radius: 10px;
   }
 }

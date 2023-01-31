@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./MyQuestions.css";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import arrow from "../../assets/leftArrowOrange.svg";
 import timeWhite from "../../assets/timeWhite.svg";
 import timeOrange from "../../assets/timeOrange.svg";
 import heartWhite from "../../assets/heartWhite.svg";
@@ -31,7 +29,6 @@ const pageVariants = {
 };
 
 export default function MyQuestions() {
-  const navigate = useNavigate();
   const [currentSubPage, setCurrentSubPage] = useState("saved");
 
   return (
@@ -42,15 +39,7 @@ export default function MyQuestions() {
       exit="exit"
       className="container my-questions"
     >
-      <h2 className="text-center">
-        <img
-          src={arrow}
-          alt="arrow"
-          className="go-back"
-          onClick={() => navigate(-1)}
-        />
-        QUESTIONS
-      </h2>
+      <h2 className="text-center">QUESTIONS</h2>
       <div className="top-nav">
         <div className="wrapper">
           <div

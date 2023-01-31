@@ -40,6 +40,7 @@ export default function Add() {
   };
 
   const handleAddQuestion = () => {
+    setBtnState("loading");
     if (error) {
       document.getElementById("question").scrollIntoView({
         behavior: "smooth",
@@ -71,11 +72,17 @@ export default function Add() {
     if (response.success) {
       setNewQuestion("");
       setBtnState("success");
+      document.getElementById("question").scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
       let timer = setTimeout(() => setBtnState("idle"), 2000);
       return () => {
         clearTimeout(timer);
       };
     } else if (response.error) {
+      setBtnState("idle");
       setDbError(response.error);
     }
   }, [response.success, response.error]);
@@ -127,12 +134,19 @@ export default function Add() {
       />
 
       <div className="new-section">
-        <ReactiveButton
+        {/*         <ReactiveButton
           initialText="Add question"
           btnState={btnState}
           onClickFunction={handleAddQuestion}
           successText="Added"
-        />
+        /> */}
+        <button
+          className="btn"
+          onClick={handleAddQuestion}
+          disabled={btnState === "loading" ? "disabled" : ""}
+        >
+          Add question
+        </button>
         {dbError && <p className="error text-center">{dbError}</p>}
       </div>
     </motion.div>

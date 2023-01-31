@@ -23,11 +23,25 @@ export default function Navbar() {
         {!user && (
           <li className="align-right">
             <Link to="/login">Login</Link>
+            {location.pathname === "/login" && (
+              <motion.span
+                transition={{ duration: 0.4, delay: 0.1 }}
+                layoutId="rect"
+                className="underline"
+              ></motion.span>
+            )}
           </li>
         )}
         {!user && (
           <li>
             <Link to="/register">Register</Link>
+            {location.pathname === "/register" && (
+              <motion.span
+                transition={{ duration: 0.4, delay: 0.1 }}
+                layoutId="rect"
+                className="underline"
+              ></motion.span>
+            )}
           </li>
         )}
         {user && (

@@ -5,6 +5,8 @@ import "./Login.css";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import { useGoogleLogin } from "../hooks/useGoogleLogin";
 
+import googleIcon from "../assets/googleIcon.svg";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,8 +79,13 @@ export default function Login() {
           </button>
         )}
         {error && <p className="error">{error}</p>}
-        <p onClick={handleForgotPassword}>Forgot password?</p>
-        <button onClick={handleGoogleLogin}>Google</button>
+        <p onClick={handleForgotPassword} className="forgot-password">
+          Forgot password?
+        </p>
+        <button className="google-btn" onClick={handleGoogleLogin}>
+          <img src={googleIcon} alt="google" />
+          Login with Google
+        </button>
         <p style={{ marginTop: "100px" }}>
           Don´t have an account? <Link to="/register">Register</Link>
         </p>

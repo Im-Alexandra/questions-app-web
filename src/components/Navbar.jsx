@@ -1,14 +1,29 @@
 import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
 import logo from "../assets/logo.svg";
 import Spinner from "./Spinner";
+import { motion } from "framer-motion";
+
+const underlineVariants = {
+  hidden: {
+    width: 0,
+  },
+  visible: {
+    width: "80%",
+  },
+  transition: {
+    duration: 1,
+    delay: 0.1,
+  },
+};
 
 export default function Navbar() {
   const { user } = useAuthContext();
   const { logout, isPending } = useLogout();
+  const location = useLocation();
 
   return (
     <div className="navbar">
@@ -40,15 +55,43 @@ export default function Navbar() {
             </li>
             <li className="align-right desktop-only">
               <Link to="/">Home</Link>
+              {location.pathname === "/" && (
+                <motion.span
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  layoutId="rect"
+                  className="underline"
+                ></motion.span>
+              )}
             </li>
             <li className="desktop-only">
               <Link to="/new-game">Play</Link>
+              {location.pathname === "/new-game" && (
+                <motion.span
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  layoutId="rect"
+                  className="underline"
+                ></motion.span>
+              )}
             </li>
             <li className="desktop-only">
               <Link to="/my-questions">Questions</Link>
+              {location.pathname === "/my-questions" && (
+                <motion.span
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  layoutId="rect"
+                  className="underline"
+                ></motion.span>
+              )}
             </li>
             <li className="desktop-only">
               <Link to="/profile">Profile</Link>
+              {location.pathname === "/profile" && (
+                <motion.span
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  layoutId="rect"
+                  className="underline"
+                ></motion.span>
+              )}
             </li>
           </>
         )}

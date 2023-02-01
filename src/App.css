@@ -103,6 +103,7 @@ input:focus {
   text-transform: uppercase;
   font-size: 1em;
   height: 38px;
+  min-height: 38px;
   padding: 0 25px;
 }
 .btn:disabled {

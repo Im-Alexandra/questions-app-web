@@ -68,7 +68,6 @@ export default function MyGames() {
                   backgroundColor: "var(--orange)",
                 }}
               >
-                {console.log(q.id)}
                 <div className="players">
                   {q.players !== undefined &&
                     q.players.map((p) => <p key={q.id + p}>{p}</p>)}

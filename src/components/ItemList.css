@@ -20,6 +20,7 @@
   min-width: 200px;
   max-width: 356px;
   position: relative;
+  display: inline-table;
 }
 /* GAME RECORDS PAGE */
 .game-records .item-list .date {

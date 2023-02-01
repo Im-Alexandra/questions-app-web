@@ -17,7 +17,9 @@ export default function BotNavbar() {
         </NavLink>
       </div>
       <div
-        className={location.pathname === "/new-game" ? "active item" : "item"}
+        className={
+          location.pathname.includes("/new-game") ? "active item" : "item"
+        }
       >
         <NavLink to="/new-game">
           <img src={playIcon} alt="" className="icon" />
@@ -25,7 +27,7 @@ export default function BotNavbar() {
       </div>
       <div
         className={
-          location.pathname === "/my-questions" ? "active item" : "item"
+          location.pathname.includes("/my-questions") ? "active item" : "item"
         }
       >
         <NavLink to="/my-questions">
@@ -33,7 +35,9 @@ export default function BotNavbar() {
         </NavLink>
       </div>
       <div
-        className={location.pathname === "/profile" ? "active item" : "item"}
+        className={
+          location.pathname.includes("/profile") ? "active item" : "item"
+        }
       >
         <NavLink to="/profile">
           <img src={profileIcon} alt="" className="icon" />

@@ -60,12 +60,9 @@
 
 .question-page .controls .mid {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
   justify-content: center;
-}
-.question-page .controls .mid p {
-  width: 42px;
 }
 
 .question-page .controls .mid img:last-child {

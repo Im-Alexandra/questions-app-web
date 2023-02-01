@@ -23,7 +23,7 @@
   height: 230px;
   padding: 15px;
   border-radius: 10px;
-  font-family: "Quicksand";
+  font-family: "Quicksand_Book";
 }
 .add textarea::placeholder {
   color: var(--black);

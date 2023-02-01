@@ -23,6 +23,7 @@
   border-radius: 4px;
   background-color: white;
   border: 1px solid #cecdcd;
+  max-width: 200px;
 }
 .players input:focus {
   border: 1px solid var(--blue);

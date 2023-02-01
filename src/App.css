@@ -25,6 +25,13 @@
 }
 
 /* CSS RESET */
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 * {
   box-sizing: border-box;
 }
@@ -138,7 +145,7 @@ div.error::after {
 }
 div.error p {
   margin: 0;
-  font-family: "Quicksand";
+  font-family: "Quicksand_Book";
 }
 .logo {
   width: 41px;

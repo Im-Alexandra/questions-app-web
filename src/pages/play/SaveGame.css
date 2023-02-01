@@ -46,7 +46,7 @@
   height: 220px;
   padding: 15px;
   border-radius: 19px;
-  font-family: "Quicksand";
+  font-family: "Quicksand_Book";
   line-height: 1.2em;
 }
 .save-game-page textarea::placeholder {

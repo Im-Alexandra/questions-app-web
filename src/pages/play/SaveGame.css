@@ -48,6 +48,7 @@
   border-radius: 19px;
   font-family: "Quicksand_Book";
   line-height: 1.2em;
+  width: 100%;
 }
 .save-game-page textarea::placeholder {
   color: white;
@@ -72,7 +73,7 @@
   font-size: 0.5em;
   margin: auto;
   display: block;
-  width: 300px;
+  width: 100%;
 }
 .save-game-page .players {
   display: flex;
@@ -108,7 +109,7 @@
 }
 .save-game-page .error {
   font-size: 0.5em;
-  width: 300px;
+  width: 100%;
   margin: auto;
 }
 .save-game-page .saved {

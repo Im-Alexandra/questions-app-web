@@ -21,6 +21,8 @@
 .question-page .question {
   line-height: 1.5em;
   margin-top: 23%;
+  position: relative;
+  z-index: 200;
 }
 .question-page .success-message {
   font-size: 0.6em;
@@ -107,7 +109,7 @@
 .svg-wrapper img:nth-child(5) {
   position: absolute;
   width: 20px;
-  top: 15%;
+  top: 11%;
   right: 15%;
 }
 .svg-wrapper img:nth-child(8) {
@@ -153,7 +155,7 @@ img:nth-child(11) {
     margin-top: 1em;
   }
   .question-page {
-    padding: 100px 40px;
+    padding: 80px 30px;
   }
 }
 /* DESKTOP ONLY */

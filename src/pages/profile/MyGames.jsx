@@ -56,26 +56,27 @@ export default function MyGames() {
       >
         <AnimatePresence mode={"popLayout"}>
           {documents?.map((q) => (
-            <>
+            <div className="card" key={q.id}>
               <motion.div
                 layout
                 animate={{ opacity: 1 }}
                 exit={{ y: -100, opacity: 0 }}
                 transition={{ duration: 0.4, type: "spring" }}
-                className="card"
                 key={q.id}
+                className="card"
                 style={{
                   backgroundColor: "var(--orange)",
                 }}
               >
+                {console.log(q.id)}
                 <div className="players">
                   {q.players !== undefined &&
-                    q.players.map((p) => <p key={p}>{p}</p>)}
+                    q.players.map((p) => <p key={q.id + p}>{p}</p>)}
                 </div>
                 <p className="note">{q.note}</p>
                 <p className="date text-center">{q.date}</p>
               </motion.div>
-            </>
+            </div>
           ))}
         </AnimatePresence>
       </ItemList>

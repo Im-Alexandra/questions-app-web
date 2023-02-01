@@ -4,7 +4,6 @@ import CategoryPicker from "../../components/CategoryPicker";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { motion } from "framer-motion";
-import ReactiveButton from "../../components/ReactiveButton";
 
 export default function Add() {
   const [newQuestion, setNewQuestion] = useState("");

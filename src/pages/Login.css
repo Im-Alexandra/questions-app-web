@@ -1,3 +1,6 @@
+.login.container {
+  margin-bottom: 0;
+}
 .login-form {
   max-width: 360px;
   margin: auto;

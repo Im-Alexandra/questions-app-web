@@ -19,7 +19,7 @@ export default function Register() {
   };
 
   return (
-    <div className="container">
+    <div className="register container">
       <form className="login-form">
         <h1 className="text-center">Register</h1>
 

@@ -40,7 +40,7 @@ export default function Login() {
   };
 
   return (
-    <div className="container">
+    <div className="login container">
       <form className="login-form">
         <h1 className="text-center">Login</h1>
 

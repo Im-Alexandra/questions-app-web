@@ -22,7 +22,7 @@
   position: relative;
 }
 /* GAME RECORDS PAGE */
-.game-records .item-list .card {
+.game-records .item-list .date {
   margin-bottom: 30px;
 }
 .game-records .players {
@@ -54,7 +54,7 @@
   font-family: "Quicksand_Bold";
   margin-top: -14px;
   position: absolute;
-  bottom: -50px;
+  bottom: -60px;
 }
 /* FAVOURITES & SAVED */
 .item-list .icon-wrapper img {

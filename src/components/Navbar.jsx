@@ -66,7 +66,7 @@ export default function Navbar() {
             </li>
             <li className="desktop-only">
               <Link to="/new-game">Play</Link>
-              {location.pathname === "/new-game" && (
+              {location.pathname.includes("/new-game") && (
                 <motion.span
                   transition={{ duration: 0.4, delay: 0.1 }}
                   layoutId="rect"
@@ -86,7 +86,7 @@ export default function Navbar() {
             </li>
             <li className="desktop-only">
               <Link to="/profile">Profile</Link>
-              {location.pathname === "/profile" && (
+              {location.pathname.includes("/profile") && (
                 <motion.span
                   transition={{ duration: 0.4, delay: 0.1 }}
                   layoutId="rect"

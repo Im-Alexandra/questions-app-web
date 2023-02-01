@@ -84,7 +84,7 @@ export default function Login() {
         </p>
         <button className="google-btn" onClick={handleGoogleLogin}>
           <img src={googleIcon} alt="google" />
-          Login with Google
+          Google login
         </button>
         <p style={{ marginTop: "100px" }}>
           Don´t have an account? <Link to="/register">Register</Link>

@@ -26,7 +26,7 @@ export default function Navbar() {
             {location.pathname === "/login" && (
               <motion.span
                 transition={{ duration: 0.4, delay: 0.1 }}
-                layoutId="rect"
+                layoutId="rect1"
                 className="underline"
               ></motion.span>
             )}
@@ -38,7 +38,7 @@ export default function Navbar() {
             {location.pathname === "/register" && (
               <motion.span
                 transition={{ duration: 0.4, delay: 0.1 }}
-                layoutId="rect"
+                layoutId="rect1"
                 className="underline"
               ></motion.span>
             )}

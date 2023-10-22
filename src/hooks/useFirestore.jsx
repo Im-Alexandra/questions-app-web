@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { db, storage } from "../firebase/config";
-import { doc, setDoc, collection, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
@@ -93,12 +93,13 @@ export const useFirestore = (col) => {
   };
 
   //add document
-  const addDocument = async (doc) => {
+  const addDocument = async (col, newDoc) => {
     dispatch({ type: "IS_PENDING" });
     //collection ref e.g. (db, "users", user.id)
-    const ref = doc(db, col);
+    const ref = collection(db, col);
+    
     try {
-      const addedDoc = await setDoc(ref, doc);
+      const addedDoc = await addDoc(ref, {...newDoc});
       dispatch({
         type: "ADDED_DOCUMENT",
         payload: addedDoc,

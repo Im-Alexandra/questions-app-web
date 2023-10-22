@@ -43,3 +43,11 @@
   margin: auto;
   display: block;
 }
+
+.add .admin-only {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

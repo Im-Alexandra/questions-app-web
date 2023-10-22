@@ -11,6 +11,7 @@ import { useCollection } from "../../hooks/useCollection";
 import { useFirestore } from "../../hooks/useFirestore";
 import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
 import { useLogout } from "../../hooks/useLogout";
+import { useDocument } from "../../hooks/useDocument";
 
 const pageVariants = {
   hidden: {
@@ -48,6 +49,8 @@ export default function Profile() {
   const navigate = useNavigate();
   const { uploadProfilePhoto, response } = useFirestore();
   const { logout, isPending } = useLogout();
+  const { document: userInfo } = useDocument(
+    `users`, user.uid);
 
   const [visibleName, setVisibleName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,6 +61,7 @@ export default function Profile() {
   const [newPhoto, setNewPhoto] = useState(null);
   const [photoError, setPhotoError] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const [formErrors, setFormErrors] = useState([]);
 
@@ -69,7 +73,10 @@ export default function Profile() {
       setPassword(user.password);
       setPhoto(user.photoURL === null ? anonymousPhoto : user.photoURL);
     }
-  }, [user]);
+    if (userInfo) {
+      setIsAdmin(userInfo.admin || false)
+    }
+  }, [user,userInfo]);
 
   const handleFileChanged = (e) => {
     setNewPhoto(null);
@@ -280,6 +287,10 @@ export default function Profile() {
           <button className="btn" onClick={handleEdit}>
             {canEdit ? "Save changes" : "Edit profile"}
           </button>
+
+          {isAdmin && (
+            <p>👑 admin 👑</p>
+          )}
         </div>
 
         <div className="bottom">

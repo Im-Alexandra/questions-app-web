@@ -4,20 +4,32 @@ import CategoryPicker from "../../components/CategoryPicker";
 import { useFirestore } from "../../hooks/useFirestore";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { motion } from "framer-motion";
+import { useDocument } from "../../hooks/useDocument";
 
 export default function Add() {
   const [newQuestion, setNewQuestion] = useState("");
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
-  const { addDocToSubcollectionNewId, response } = useFirestore("users");
+  const { addDocToSubcollectionNewId, addDocument, response } = useFirestore("users");
   const [btnState, setBtnState] = useState("idle");
   const [dbError, setDbError] = useState(null);
+  const { document: userInfo } = useDocument(`users`, user.uid);
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (userInfo) {
+      setIsAdmin(userInfo.admin || false)
+    }
+  }, [userInfo])
 
   //category picker state
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("fun");
+
+  const [saveForAll, setSaveForAll] = useState(false);
 
   const handleCategoryChange = (e) => {
     if (e.target.name === "option1") {
@@ -58,9 +70,17 @@ export default function Add() {
       tags: tags,
     };
     if (newQuestion !== "") {
-      addDocToSubcollectionNewId(user.uid, "added", questionToAdd);
-      const currentText = document.getElementById("currentCount");
-      currentText.innerHTML = "0";
+      if (isAdmin && saveForAll) {
+        //save for all users
+        addDocument('questions', questionToAdd)
+        const currentText = document.getElementById("currentCount");
+        currentText.innerHTML = "0";
+      } else {
+        //save question for this user only
+        addDocToSubcollectionNewId(user.uid, "added", questionToAdd);
+        const currentText = document.getElementById("currentCount");
+        currentText.innerHTML = "0";
+      }
     } else {
       setError("Question has to be filled");
     }
@@ -131,6 +151,13 @@ export default function Add() {
         option4={option4}
         change={handleCategoryChange}
       />
+      {isAdmin && 
+        <div className="new-section admin-only">
+          <p>Save question for everyone</p>
+          <input type="checkbox" value="saveForAll" checked={saveForAll} onChange={() => setSaveForAll((prev) => !prev)}/>
+        </div>
+      }
+      
 
       <div className="new-section">
         {/*         <ReactiveButton
